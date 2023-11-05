@@ -1,5 +1,5 @@
 module.exports = {
-	getUser, getPlaylists,
+	getUser, getPlaylists, getPlaylistItems,
 }
 
 async function getUser (session) {
@@ -24,6 +24,22 @@ async function getPlaylists (session, offset = 0) {
 	if (playlistData.next) filteredEntries.push(...await getPlaylists(session, (params.limit + params.offset)));
 
 	return filteredEntries;
+}
+
+async function getPlaylistItems (session, playlistID, offset = 0) {
+	const params = {
+		'fields': 'next, items.track.uri',
+		'limit': 50,
+		'offset': offset,
+	}
+
+	const itemsData = await getFetch(`playlists/${playlistID}/tracks?${new URLSearchParams(params).toString()}`, session.auth);
+	const allItems = itemsData.items.map((x) => x.track);
+
+	// NOTE: If data remains to be fetched, recursively fetch and append until all playlist items have been fetched
+	if (itemsData.next) allItems.push(...await getPlaylistItems(session, playlistID, (params.limit + params.offset)));
+
+	return allItems;
 }
 
 async function getFetch (endpoint, auth) {
