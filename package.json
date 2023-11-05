@@ -1,0 +1,23 @@
+{
+	"name": "spluff",
+	"version": "0.0.0",
+	"description": "Spluff is a simple tool that fully shuffles the songs in any of your Spotify playlists",
+	"author": "maikdevries",
+	"license": "MIT",
+	"homepage": "https://github.com/maikdevries/Spluff",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/maikdevries/Spluff.git"
+	},
+	"bugs": {
+		"url": "https://github.com/maikdevries/Spluff/issues"
+	},
+	"main": "app.js",
+	"dependencies": {
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2",
+		"express-session": "^1.17.3",
+		"memorystore": "^1.6.7",
+		"nunjucks": "^3.2.4"
+	}
+}
