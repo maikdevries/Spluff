@@ -1,11 +1,10 @@
 const router = require('express').Router();
 const { getUser } = require('../controllers/spotify.js');
 
-const authRouter = require('./auth.js');
-
 module.exports = router;
 
-router.use('/auth', authRouter);
+router.use('/auth', require('./auth.js'));
+router.use('/api/v1', require('./api.js'));
 
 router.get('/', (req, res, next) => {
 	res.send('NOT IMPLEMENTED: / GET');
