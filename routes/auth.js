@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const crypto = require('node:crypto');
 const { getToken, refreshToken } = require('../controllers/auth.js');
+const { getUser } = require('../controllers/spotify.js');
 
 module.exports = router;
 
@@ -30,7 +31,12 @@ router.get('/login', async (req, res, next) => {
 	if (!req.query.code) return res.redirect('/auth');
 
 	try {
-		Object.assign(req.session, { auth: await getToken(req.query.code) });
+		const authData = await getToken(req.query.code);
+
+		Object.assign(req.session, {
+			auth: authData,
+			user: await getUser({ auth: authData }),
+		});
 
 		return res.redirect('/playlists');
 	} catch (error) { return next(error) }
@@ -41,7 +47,12 @@ router.get('/refresh', async (req, res, next) => {
 	if (!req.session.auth?.refreshToken) return res.redirect('/auth');
 
 	try {
-		Object.assign(req.session, { auth: await refreshToken(req.session.auth.refreshToken) });
+		const authData = await refreshToken(req.session.auth.refreshToken);
+
+		Object.assign(req.session, {
+			auth: authData,
+			user: await getUser({ auth: authData }),
+		});
 
 		// NOTE: Redirect user back to the actual route they requested
 		return res.redirect('back');
