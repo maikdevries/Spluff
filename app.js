@@ -29,6 +29,15 @@ app.use(session({
 app.use(Express.json());
 app.use(Express.urlencoded({ extended: true }));
 
+app.use('/', (req, res, next) => {
+	// NOTE: Expose app information to template rendering engine
+	app.locals = {
+		app: { 'version': require('./package.json').version },
+	}
+
+	return next();
+});
+
 app.use((error, req, res, next) => {
 	console.error(error.toString());
 
