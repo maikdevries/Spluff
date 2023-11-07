@@ -8,7 +8,7 @@ router.use('/api/v1', require('./api.js'));
 router.use('/', (req, res, next) => {
 	// NOTE: Expose session information to template rendering engine
 	res.locals = {
-		session: { user: req.session.user ?? {} },
+		session: { user: req.session.user ?? null },
 	}
 
 	return next();
