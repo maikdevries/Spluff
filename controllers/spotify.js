@@ -7,7 +7,9 @@ async function getUser (session) {
 
 	return {
 		'displayName': userData.display_name,
+		'url': userData.external_urls.spotify,
 		'id': userData.id,
+		'image': userData.images[0].url,
 	}
 }
 
