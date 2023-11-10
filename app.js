@@ -15,15 +15,17 @@ app.set('view engine', 'njk');
 
 app.use(session({
 	cookie: {
-		'secure': false,
 		'maxAge': 86400000,
+		'secure': true,
 	},
+	'name': 'sessionID',
+	'proxy': true,
+	'resave': false,
+	'saveUninitialized': false,
+	'secret': process.env.SESSION_SECRET,
 	store: new MemoryStore({
 		'checkPeriod': 86400000,
 	}),
-	'saveUninitialized': false,
-	'resave': false,
-	'secret': process.env.SESSION_SECRET,
 }));
 
 app.use(Express.json());
