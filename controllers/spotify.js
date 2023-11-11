@@ -1,5 +1,5 @@
 module.exports = {
-	getUser, getPlaylists, getPlaylistItems,
+	getUser, getPlaylists, getPlaylistItems, addPlaylistItems, deletePlaylistItems,
 }
 
 async function getUser (session) {
@@ -44,6 +44,30 @@ async function getPlaylistItems (session, playlistID, offset = 0) {
 	return allItems;
 }
 
+async function addPlaylistItems (session, playlistID, items) {
+	const data = {
+		uris: items.slice(0, 100),
+	}
+
+	const snapshotID = await postFetch(`playlists/${playlistID}/tracks`, JSON.stringify(data), session.auth);
+
+	// NOTE: If items remain to be added, recursively create requests until all playlist items have been added
+	if (items.length > 100) return await addPlaylistItems(session, playlistID, items.slice(100, items.length))
+	else return snapshotID;
+}
+
+async function deletePlaylistItems (session, playlistID, items) {
+	const data = {
+		tracks: items.slice(0, 100),
+	}
+
+	const snapshotID = await deleteFetch(`playlists/${playlistID}/tracks`, JSON.stringify(data), session.auth);
+
+	// NOTE: If items remain to be deleted, recursively create requests until all playlist items have been deleted
+	if (items.length > 100) return await deletePlaylistItems(session, playlistID, items.slice(100, items.length))
+	else return snapshotID;
+}
+
 async function getFetch (endpoint, auth) {
 	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
 		method: 'GET',
@@ -52,5 +76,35 @@ async function getFetch (endpoint, auth) {
 
 	return response.ok
 		? await response.json()
-		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`)	})();
+		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
+}
+
+async function postFetch (endpoint, data, auth) {
+	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
+		method: 'POST',
+		headers: {
+			'Authorization': `Bearer ${auth.token}`,
+			'Content-Type': 'application/json',
+		},
+		body: data,
+	});
+
+	return response.ok
+		? await response.json()
+		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
+}
+
+async function deleteFetch (endpoint, data, auth) {
+	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
+		method: 'DELETE',
+		headers: {
+			'Authorization': `Bearer ${auth.token}`,
+			'Content-Type': 'application/json',
+		},
+		body: data,
+	});
+
+	return response.ok
+		? await response.json()
+		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
 }
