@@ -36,7 +36,9 @@ async function getPlaylistItems (session, playlistID, offset = 0) {
 	}
 
 	const itemsData = await getFetch(`playlists/${playlistID}/tracks?${new URLSearchParams(params).toString()}`, session.auth);
-	const allItems = itemsData.items.map((x) => x.track);
+
+	// NOTE: Filter out any local files as the API does not (fully) support operations on local files
+	const allItems = itemsData.items.flatMap((x) => x.track.is_local ? [] : [x.track]);
 
 	// NOTE: If data remains to be fetched, recursively fetch and append until all playlist items have been fetched
 	if (itemsData.next) allItems.push(...await getPlaylistItems(session, playlistID, (params.limit + params.offset)));
