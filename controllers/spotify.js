@@ -20,7 +20,19 @@ async function getPlaylists (session, offset = 0) {
 	}
 
 	const playlistData = await getFetch(`me/playlists?${new URLSearchParams(params).toString()}`, session.auth);
-	const filteredEntries = playlistData.items.filter((x) => x.owner.id === session.user.id);
+
+	// NOTE: Filter out any non-user-owned playlists and map to only return used playlist fields
+	const filteredEntries = playlistData.items.flatMap((x) => {
+		return x.owner.id !== session.user.id
+			? []
+			: {
+				'description': x.description,
+				'url': x.external_urls.spotify,
+				'id': x.id,
+				'image': x.images[x.images.length - 1].url,
+				'name': x.name,
+			}
+	});
 
 	// NOTE: If data remains to be fetched, recursively fetch and append until all user's playlists have been fetched
 	if (playlistData.next) filteredEntries.push(...await getPlaylists(session, (params.limit + params.offset)));
