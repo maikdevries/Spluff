@@ -9,7 +9,10 @@ async function getUser (session) {
 		'displayName': userData.display_name,
 		'url': userData.external_urls.spotify,
 		'id': userData.id,
-		'image': userData.images[0].url,
+		image: {
+			'url': userData.images[0].url,
+			'size': userData.images[0].width,
+		},
 	}
 }
 
@@ -29,7 +32,10 @@ async function getPlaylists (session, offset = 0) {
 				'description': x.description,
 				'url': x.external_urls.spotify,
 				'id': x.id,
-				'image': x.images[x.images.length - 1].url,
+				image: {
+					'url': x.images[x.images.length - 1].url,
+					'size': x.images[x.images.length - 1].width,
+				},
 				'name': x.name,
 			}
 	});
