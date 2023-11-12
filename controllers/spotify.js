@@ -6,7 +6,7 @@ async function getUser (session) {
 	const userData = await getFetch('me', session.auth);
 
 	return {
-		'displayName': userData.display_name,
+		'name': userData.display_name,
 		'url': userData.external_urls.spotify,
 		'id': userData.id,
 		image: {
@@ -29,6 +29,7 @@ async function getPlaylists (session, offset = 0) {
 		return x.owner.id !== session.user.id
 			? []
 			: {
+				'name': x.name,
 				'description': x.description,
 				'url': x.external_urls.spotify,
 				'id': x.id,
@@ -36,7 +37,6 @@ async function getPlaylists (session, offset = 0) {
 					'url': x.images[x.images.length - 1].url,
 					'size': x.images[x.images.length - 1].width,
 				},
-				'name': x.name,
 			}
 	});
 
