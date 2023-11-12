@@ -1,0 +1,30 @@
+<a href='/'>Spluff</a>
+
+{% if session.user %}
+	<div>
+
+		<div>
+			<img src='{{ session.user.image.url }}' width='{{ session.user.image.size }}' height='{{ session.user.image.size }}'>
+			<span>{{ session.user.name }}</span>
+		</div>
+
+		<ul>
+
+			<li>
+				<a href='/playlists'>Playlists</a>
+			</li>
+
+			<li>
+				<a href='{{ session.user.url }}'>Spotify Profile</a>
+			</li>
+
+			<li>
+				<a href='/auth/logout'>Logout</a>
+			</li>
+
+		</ul>
+
+	</div>
+{% else %}
+	<a href='/auth'>Login with Spotify</a>
+{% endif %}

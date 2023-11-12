@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+	<head>
+
+		{% include './partials/head.njk' %}
+
+		<link rel='stylesheet' href='/css/playlists.css'>
+
+	</head>
+
+	<body>
+
+		<header>
+
+			{% include './partials/header.njk' %}
+
+		</header>
+
+		<main>
+
+			<div>
+
+				<ul>
+
+					{% for playlist in playlists %}
+						<li>
+							<img src='{{ playlist.image.url }}' width='{{ playlist.image.size }}' height='{{ playlist.image.size }}'>
+
+							<div>
+								<span>{{ playlist.name }}</span>
+								<span>{{ playlist.description }}</span>
+							</div>
+
+							<div>
+								<progress></progress>
+
+								<button type='button'>
+									<span>shuffle</span>
+								</button>
+							</div>
+						</li>
+					{% endfor %}
+
+				</ul>
+
+			</div>
+
+		</main>
+
+		<footer>
+
+			{% include './partials/footer.njk' %}
+
+		</footer>
+
+	</body>
+
+</html>
