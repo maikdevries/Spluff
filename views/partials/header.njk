@@ -6,20 +6,30 @@
 		<div>
 			<img src='{{ session.user.image.url }}' width='{{ session.user.image.size }}' height='{{ session.user.image.size }}'>
 			<span>{{ session.user.name }}</span>
+			<img src='/resources/icons/expand_more.svg' width='24' height='24'>
 		</div>
 
 		<ul>
 
 			<li>
-				<a href='/playlists'>Playlists</a>
+				<a href='/playlists'>
+					<img src='/resources/icons/queue_music.svg' width='24' height='24'>
+					<span>Playlists</span>
+				</a>
 			</li>
 
 			<li>
-				<a href='{{ session.user.url }}'>Spotify Profile</a>
+				<a href='{{ session.user.url }}'>
+					<img src='/resources/icons/spotify.svg' width='24' height='24'>
+					<span>Spotify Profile</span>
+				</a>
 			</li>
 
 			<li>
-				<a href='/auth/logout'>Logout</a>
+				<a href='/auth/logout'>
+					<img src='/resources/icons/logout.svg' width='24' height='24'>
+					<span>Logout</span>
+				</a>
 			</li>
 
 		</ul>
