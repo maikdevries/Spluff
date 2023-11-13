@@ -20,24 +20,27 @@
 
 		<main>
 
-			<div>
+			<div id='playlistContainer'>
 
 				<ul>
 
 					{% for playlist in playlists %}
-						<li>
-							<img src='{{ playlist.image.url }}' width='{{ playlist.image.size }}' height='{{ playlist.image.size }}'>
+						<li class='playlist' data-id='{{ playlist.id }}'>
+							<div class='playlistData'>
+								<img src='{{ playlist.image.url }}' width='{{ playlist.image.size }}' height='{{ playlist.image.size }}'>
 
-							<div>
-								<span>{{ playlist.name }}</span>
-								<span>{{ playlist.description }}</span>
+								<div>
+									<span class='playlistName'>{{ playlist.name }}</span>
+									<span class='playlistDescription'>{{ playlist.description }}</span>
+								</div>
 							</div>
 
-							<div>
-								<progress></progress>
+							<div class='playlistActions'>
+								<progress class='hidden'></progress>
 
-								<button type='button'>
+								<button type='button' class='shuffleButton'>
 									<img src='/resources/icons/shuffle.svg' width='24' height='24'>
+									<span>Shuffle</span>
 								</button>
 							</div>
 						</li>

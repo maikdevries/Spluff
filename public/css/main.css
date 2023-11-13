@@ -1,0 +1,72 @@
+:root {
+	--colour-white: #f0f0f0;
+	--colour-spotify-black: #191414;
+	--colour-spotify-green: #1db954;
+}
+
+html {
+	line-height: 1.15;
+}
+
+body {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	margin: 0 0 0 0;
+	background: var(--colour-spotify-black);
+	font: normal normal normal 100% sans-serif;
+	color: var(--colour-white);
+}
+
+header {
+	display: flex;
+	justify-content: space-around;
+}
+
+main {
+	display: flex;
+	justify-content: center;
+}
+
+footer {
+	display: flex;
+	justify-content: center;
+	font-size: 75%;
+	opacity: 75%;
+}
+
+button, input, textarea {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	font: inherit;
+	line-height: 1.15;
+}
+
+button {
+	border: none;
+	color: inherit;
+	cursor: pointer;
+}
+
+a, a:visited {
+	color: inherit;
+	text-decoration: none;
+}
+
+ul {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	list-style: none;
+}
+
+p, span {
+	margin: 0 0 0 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+pre {
+	font-family: monospace, monospace;
+	font-size: 100%;
+}
