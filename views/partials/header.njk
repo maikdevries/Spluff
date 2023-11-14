@@ -3,30 +3,30 @@
 {% if session.user %}
 	<div>
 
-		<div>
+		<div id='userData'>
 			<img src='{{ session.user.image.url }}' width='{{ session.user.image.size }}' height='{{ session.user.image.size }}'>
 			<span>{{ session.user.name }}</span>
 			<img src='/resources/icons/expand_more.svg' width='24' height='24'>
 		</div>
 
-		<ul>
+		<ul id='userDropdown' class='invisible'>
 
 			<li>
-				<a href='/playlists'>
+				<a href='/playlists' class='userDropdownEntry'>
 					<img src='/resources/icons/queue_music.svg' width='24' height='24'>
 					<span>Playlists</span>
 				</a>
 			</li>
 
 			<li>
-				<a href='{{ session.user.url }}'>
+				<a href='{{ session.user.url }}' class='userDropdownEntry'>
 					<img src='/resources/icons/spotify.svg' width='24' height='24'>
-					<span>Spotify Profile</span>
+					<span>Profile</span>
 				</a>
 			</li>
 
 			<li>
-				<a href='/auth/logout'>
+				<a href='/auth/logout' class='userDropdownEntry'>
 					<img src='/resources/icons/logout.svg' width='24' height='24'>
 					<span>Logout</span>
 				</a>
@@ -36,5 +36,8 @@
 
 	</div>
 {% else %}
-	<a href='/auth'>Login with Spotify</a>
+	<a href='/auth'>
+		<span>Login with</span>
+		<img src='/resources/icons/spotify_wordmark.svg' width='75' height='22.5'>
+	</a>
 {% endif %}

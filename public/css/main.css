@@ -1,7 +1,12 @@
 :root {
-	--colour-white: #f0f0f0;
+	--colour-black: #0b0909;
+	--colour-black-hover: #191414;
+	--colour-red: #ed4245;
 	--colour-spotify-black: #191414;
 	--colour-spotify-green: #1db954;
+	--colour-white: #f0f0f0;
+
+	--transition-collapse: all 0.15s linear 0s;
 }
 
 html {
@@ -19,13 +24,115 @@ body {
 }
 
 header {
+	width: 75%;
+	height: 50px;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
+	align-items: center;
+	margin: 15px auto 15px auto;
+}
+
+header > a:first-child {
+
+}
+
+header > a:last-child {
+	width: 150px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 10px 10px 10px;
+	background: var(--colour-white);
+	color: var(--colour-black);
+	font-size: 90%;
+	font-weight: bold;
+}
+
+header > div {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	padding: 5px 5px 5px 5px;
+	background: var(--colour-black);
+	cursor: pointer;
+	user-select: none;
+}
+
+#userData {
+	min-width: 125px;
+	max-width: 200px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 5px 5px 5px;
+}
+
+#userData > img:first-of-type {
+	width: 32px;
+	height: 32px;
+}
+
+#userData > span {
+	flex: 1 1 auto;
+	margin: 0 10px 0 10px;
+	font-weight: bold;
+}
+
+#userData > img:last-of-type {
+	transition: var(--transition-collapse);
+}
+
+#userData:has(~ #userDropdown:not(.invisible)) > img:last-of-type {
+	transform: rotate(180deg);
+}
+
+#userDropdown {
+	width: 150px;
+	position: absolute;
+	top: 125%;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	margin: -2.5px 0 -2.5px 0;
+	padding: 10px 10px 10px 10px;
+	background: var(--colour-black);
+	cursor: default;
+}
+
+#userDropdown.invisible {
+	visibility: hidden;
+	opacity: 0;
+}
+
+#userDropdown > li {
+	margin: 2.5px 0 2.5px 0;
+	padding: 7.5px 7.5px 7.5px 7.5px;
+}
+
+#userDropdown > li:hover {
+	background: var(--colour-black-hover);
+	cursor: pointer;
+}
+
+#userDropdown > li:has(a[href='/auth/logout']) {
+	color: var(--colour-red);
+}
+
+.userDropdownEntry {
+	height: 25px;
+	display: flex;
+	align-items: center;
+}
+
+.userDropdownEntry > img {
+	margin: 0 10px 0 0;
 }
 
 main {
+	flex: 1 1 auto;
 	display: flex;
 	justify-content: center;
+	margin: 15px 0 15px 0;
 }
 
 footer {
