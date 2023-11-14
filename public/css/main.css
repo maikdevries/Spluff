@@ -43,6 +43,7 @@ header > a:last-child {
 	align-items: center;
 	padding: 10px 10px 10px 10px;
 	background: var(--colour-white);
+	border-radius: 2.5px;
 	color: var(--colour-black);
 	font-size: 0.9rem;
 	font-weight: bold;
@@ -54,6 +55,7 @@ header > div {
 	justify-content: center;
 	padding: 5px 5px 5px 5px;
 	background: var(--colour-black);
+	border-radius: 2.5px;
 	cursor: pointer;
 	user-select: none;
 }
@@ -96,6 +98,7 @@ header > div {
 	margin: -2.5px 0 -2.5px 0;
 	padding: 10px 10px 10px 10px;
 	background: var(--colour-black);
+	border-radius: 2.5px;
 	cursor: default;
 }
 
@@ -107,6 +110,7 @@ header > div {
 #userDropdown > li {
 	margin: 2.5px 0 2.5px 0;
 	padding: 7.5px 7.5px 7.5px 7.5px;
+	border-radius: 2.5px;
 }
 
 #userDropdown > li:hover {

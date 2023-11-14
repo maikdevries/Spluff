@@ -70,6 +70,7 @@
 	align-items: center;
 	padding: 7.5px 7.5px 7.5px 7.5px;
 	background: var(--colour-spotify-green);
+	border-radius: 2.5px;
 	color: var(--colour-spotify-black);
 }
 
