@@ -63,6 +63,10 @@
 	justify-content: space-between;
 }
 
+.playlistActions > img {
+	margin: 0 15px 0 0;
+}
+
 .shuffleButton {
 	width: 100px;
 	display: flex;
@@ -79,6 +83,6 @@ progress {
 	accent-color: var(--colour-spotify-green);
 }
 
-progress.hidden {
+img.hidden, progress.hidden {
 	display: none;
 }
