@@ -100,6 +100,7 @@ header > div {
 	background: var(--colour-black);
 	border-radius: 2.5px;
 	cursor: default;
+	transition: var(--transition-collapse);
 }
 
 #userDropdown.invisible {
