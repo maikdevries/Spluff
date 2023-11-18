@@ -1,4 +1,6 @@
 <p align='center'>
+	<img src='../public/resources/spluff.svg' width='300' height='120'>
+	<br><br>
 	Spluff is a simple tool that fully shuffles the songs in any of your <b><a href='https://www.spotify.com'>Spotify</a></b> playlists.
 	<br>
 	Its purpose is to 'reset' Spotify's shuffle algorithm through the use of the official <b><a href='https://developer.spotify.com/documentation/web-api'>Spotify Web API</a></b>.
