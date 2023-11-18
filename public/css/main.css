@@ -1,6 +1,7 @@
 :root {
 	--colour-black: #0b0909;
 	--colour-black-hover: #191414;
+	--colour-grey: #969696;
 	--colour-red: #ed4245;
 	--colour-spotify-black: #191414;
 	--colour-spotify-green: #1db954;
@@ -21,6 +22,16 @@ body {
 	background: var(--colour-spotify-black);
 	font: normal normal normal 100% sans-serif;
 	color: var(--colour-white);
+	scrollbar-width: thin;
+}
+
+body::-webkit-scrollbar {
+	width: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+	background: var(--colour-grey);
+	border-radius: 2.5px;
 }
 
 header {
