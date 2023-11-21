@@ -14,21 +14,21 @@
 		<ul id='userDropdown' class='invisible'>
 
 			<li>
-				<a href='/playlists' class='userDropdownEntry'>
+				<a class='userDropdownEntry' href='/playlists'>
 					<img src='/resources/icons/queue_music.svg' width='24' height='24'>
 					<span>Playlists</span>
 				</a>
 			</li>
 
 			<li>
-				<a href='{{ session.user.url }}' class='userDropdownEntry'>
+				<a class='userDropdownEntry' href='{{ session.user.url }}'>
 					<img src='/resources/icons/spotify.svg' width='24' height='24'>
 					<span>Profile</span>
 				</a>
 			</li>
 
 			<li>
-				<a href='/auth/logout' class='userDropdownEntry'>
+				<a class='userDropdownEntry' href='/auth/logout'>
 					<img src='/resources/icons/logout.svg' width='24' height='24'>
 					<span>Logout</span>
 				</a>
