@@ -56,7 +56,7 @@ header > a:last-child {
 	padding: 10px 10px 10px 10px;
 	background: var(--colour-white);
 	border-radius: 2.5px;
-	color: var(--colour-black);
+	color: var(--colour-spotify-black);
 	font-size: 0.9rem;
 	font-weight: bold;
 }
@@ -148,7 +148,9 @@ header > div {
 main {
 	flex: 1 1 auto;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	margin: 15px 0 15px 0;
 }
 
