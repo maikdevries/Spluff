@@ -1,8 +1,8 @@
 #cardContainer {
-	width: 75%;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	margin: -75px 0 0 0;
 	font-weight: bold;
 }
 
@@ -11,15 +11,11 @@
 	max-width: 500px;
 	display: flex;
 	flex-direction: column;
-	margin: 20px 20px 20px 20px;
+	margin: 25px 50px 25px 50px;
 }
 
 .card > span {
 	font-size: 3rem;
-}
-
-.card:last-of-type > span {
-	text-align: right;
 }
 
 .card > span > span {
@@ -48,22 +44,22 @@
 }
 
 #promotionalContainer > span {
-	margin: 10px 0 10px 0;
+	margin: 30px 0 15px 0;
+	font-size: 1.25rem;
 }
 
 .promotionalLink[href='/playlists'] {
-	width: 125px;
+	width: 150px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 10px 10px 10px 10px;
+	padding: 15px 15px 15px 15px;
 	background: var(--colour-black);
 	border-radius: 2.5px;
 	color: var(--colour-white);
-	font-size: 0.9rem;
 }
 
+/* NOTE: Apply CSS filter to transform SVG from Spotify black to Spotify green colour */
 .promotionalLink[href='/playlists'] > img {
-	width: 50px;
-	height: 20px;
+	filter: brightness(0) saturate(0) invert(54%) sepia(80%) saturate(437%) hue-rotate(88deg) brightness(90%) contrast(98%);
 }
