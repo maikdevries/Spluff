@@ -34,7 +34,10 @@ app.use(Express.urlencoded({ extended: true }));
 app.use('/', (req, res, next) => {
 	// NOTE: Expose app information to template rendering engine
 	app.locals = {
-		app: { 'version': require('./package.json').version },
+		app: {
+			'copyright': (new Date()).getFullYear(),
+			'version': require('./package.json').version,
+		},
 	}
 
 	return next();
