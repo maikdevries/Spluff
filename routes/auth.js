@@ -60,5 +60,5 @@ router.get('/refresh', async (req, res, next) => {
 });
 
 router.get('/logout', (req, res, next) => {
-	req.session.destroy(() => res.redirect('/'));
+	return req.session.destroy(() => res.redirect('/'));
 });

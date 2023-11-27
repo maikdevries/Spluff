@@ -15,7 +15,7 @@ router.use('/', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-	res.send('NOT IMPLEMENTED: / GET');
+	return res.send('NOT IMPLEMENTED: / GET');
 });
 
 router.use('/playlists', (req, res, next) => {
@@ -29,13 +29,13 @@ router.use('/playlists', (req, res, next) => {
 });
 
 router.get('/playlists', (req, res, next) => {
-	res.send('NOT IMPLEMENTED: /playlists GET');
+	return res.send('NOT IMPLEMENTED: /playlists GET');
 });
 
 router.get('/csrf', (req, res, next) => {
-	res.send('NOT IMPLEMENTED: /csrf GET');
+	return res.send('NOT IMPLEMENTED: /csrf GET');
 });
 
 router.get('/error', (req, res, next) => {
-	res.send('NOT IMPLEMENTED: /error GET');
+	return res.send('NOT IMPLEMENTED: /error GET');
 });
