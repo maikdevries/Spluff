@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { getPlaylists } = require('../controllers/spotify.js');
 
 module.exports = router;
 
@@ -15,7 +16,7 @@ router.use('/', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-	return res.send('NOT IMPLEMENTED: / GET');
+	return res.render('index');
 });
 
 router.use('/playlists', (req, res, next) => {
@@ -28,8 +29,10 @@ router.use('/playlists', (req, res, next) => {
 	return next();
 });
 
-router.get('/playlists', (req, res, next) => {
-	return res.send('NOT IMPLEMENTED: /playlists GET');
+router.get('/playlists', async (req, res, next) => {
+	return res.render('playlists', {
+		playlists: await getPlaylists(req.session),
+	});
 });
 
 router.get('/csrf', (req, res, next) => {
