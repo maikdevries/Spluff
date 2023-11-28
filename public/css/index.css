@@ -2,7 +2,6 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin: -75px 0 0 0;
 	font-weight: bold;
 }
 
@@ -36,15 +35,77 @@
 	background: var(--colour-spotify-green);
 }
 
+#explanationContainer {
+	max-width: 1200px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 25px 0 25px 0;
+	padding: 0 50px 0 50px;
+	font-weight: bold;
+	box-sizing: border-box;
+}
+
+#explanationContainer > span {
+	font-size: 1.5rem;
+}
+
+#explanationContainer > div {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 20px 0 0 0;
+}
+
+.explanation {
+	width: 275px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 15px 20px 15px 20px;
+	background: var(--colour-white);
+	border-radius: 2.5px;
+	color: var(--colour-spotify-black);
+	font-weight: bold;
+}
+
+.explanation > img {
+	width: 32px;
+	height: 32px;
+}
+
+.explanation > span {
+	display: flex;
+	align-items: center;
+	margin: 5px 0 0 0;
+}
+
+.explanation > span > span:has(+ img) {
+	margin: 0 3px 0 0;
+}
+
+.explanation > hr {
+	width: 10px;
+	margin: 10px 0 10px 0;
+}
+
+.explanation > p {
+	text-align: center;
+	overflow: unset;
+	white-space: unset;
+}
+
 #promotionalContainer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin: 25px 0 0 0;
 	font-weight: bold;
 }
 
 #promotionalContainer > span {
-	margin: 30px 0 15px 0;
 	font-size: 1.25rem;
 }
 
@@ -53,6 +114,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin: 20px 0 0 0;
 	padding: 15px 15px 15px 15px;
 	background: var(--colour-black);
 	border-radius: 2.5px;
