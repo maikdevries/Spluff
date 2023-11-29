@@ -164,8 +164,12 @@ main {
 footer {
 	display: flex;
 	justify-content: center;
+	color: var(--colour-grey);
 	font-size: 0.75rem;
-	opacity: 75%;
+}
+
+footer a:hover {
+	color: var(--colour-white);
 }
 
 button, input, textarea {
