@@ -32,7 +32,7 @@
 								<img src='{{ playlist.image.url }}' width='{{ playlist.image.size }}' height='{{ playlist.image.size }}'>
 
 								<div>
-									<span class='playlistName'>{{ playlist.name }}</span>
+									<span class='playlistName'><a href='{{ playlist.url }}'>{{ playlist.name }}</a></span>
 									<span class='playlistDescription'>{{ playlist.description | safe }}</span>
 								</div>
 							</div>
