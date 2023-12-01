@@ -43,8 +43,21 @@
 
 .playlistName {
 	max-width: 85%;
+	display: flex;
+	align-items: center;
 	color: var(--colour-spotify-green);
 	font-weight: bold;
+}
+
+.playlistName > img {
+	width: 15px;
+	height: 15px;
+	margin: 0 0 0 5px;
+	visibility: hidden;
+}
+
+.playlistName:has(a:hover) > img {
+	visibility: visible;
 }
 
 .playlistDescription {

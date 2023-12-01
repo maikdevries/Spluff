@@ -152,6 +152,12 @@ header > div {
 	margin: 0 10px 0 0;
 }
 
+.userDropdownEntry > img[src='/resources/icons/open_in_new.svg'] {
+	width: 20px;
+	height: 20px;
+	margin: 0 0 0 auto;
+}
+
 main {
 	flex: 1 1 auto;
 	display: flex;
