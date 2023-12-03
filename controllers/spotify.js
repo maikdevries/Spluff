@@ -90,7 +90,7 @@ async function deletePlaylistItems (session, playlistID, items) {
 
 async function getFetch (endpoint, auth) {
 	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-		method: 'GET',
+		'method': 'GET',
 		headers: { 'Authorization': `Bearer ${auth.token}` },
 	});
 
@@ -101,7 +101,7 @@ async function getFetch (endpoint, auth) {
 
 async function postFetch (endpoint, data, auth) {
 	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-		method: 'POST',
+		'method': 'POST',
 		headers: {
 			'Authorization': `Bearer ${auth.token}`,
 			'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ async function postFetch (endpoint, data, auth) {
 
 async function deleteFetch (endpoint, data, auth) {
 	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-		method: 'DELETE',
+		'method': 'DELETE',
 		headers: {
 			'Authorization': `Bearer ${auth.token}`,
 			'Content-Type': 'application/json',

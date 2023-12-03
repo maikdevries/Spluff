@@ -47,7 +47,7 @@ async function refreshToken (refreshToken) {
 }
 
 async function authFetch (headers, data) {
-	const response = await fetch('https://accounts.spotify.com/api/token', { method: 'POST', headers: headers, body: data });
+	const response = await fetch('https://accounts.spotify.com/api/token', { 'method': 'POST', headers: headers, body: data });
 
 	return response.ok
 		? await response.json()

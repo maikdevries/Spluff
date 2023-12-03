@@ -31,7 +31,7 @@ async function shufflePlaylist (event) {
 }
 
 async function getAPI (endpoint) {
-	const response = await fetch(`${document.location.origin}/api/v1/${endpoint}`, { method: 'GET' });
+	const response = await fetch(`${document.location.origin}/api/v1/${endpoint}`, { 'method': 'GET' });
 
 	return response.ok
 		? await response.json()

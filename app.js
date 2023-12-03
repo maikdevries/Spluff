@@ -29,7 +29,7 @@ app.use(session({
 }));
 
 app.use(Express.json());
-app.use(Express.urlencoded({ extended: true }));
+app.use(Express.urlencoded({ 'extended': true }));
 
 app.use('/', (req, res, next) => {
 	// NOTE: Expose app information to template rendering engine
