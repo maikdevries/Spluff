@@ -1,5 +1,5 @@
 module.exports = {
-	getUser, getPlaylists, getPlaylistItems, addPlaylistItems, deletePlaylistItems,
+	getUser, getPlaylists, getPlaylistItems, addPlaylistItems, deletePlaylistItems, getPlaylistImage,
 }
 
 async function getUser (session) {
@@ -86,6 +86,15 @@ async function deletePlaylistItems (session, playlistID, items) {
 	// NOTE: If items remain to be deleted, recursively create requests until all playlist items have been deleted
 	if (items.length > 100) return await deletePlaylistItems(session, playlistID, items.slice(100, items.length))
 	else return snapshotID;
+}
+
+async function getPlaylistImage (session, playlistID) {
+	const imageData = await getFetch(`playlists/${playlistID}/images`, session.auth);
+
+	return {
+		'url': imageData[imageData.length - 1].url,
+		'size': imageData[imageData.length - 1].width,
+	}
 }
 
 async function getFetch (endpoint, auth) {

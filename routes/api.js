@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { shuffle } = require('../controllers/algorithms.js');
-const { addPlaylistItems, deletePlaylistItems, getPlaylistItems } = require('../controllers/spotify.js');
+const { addPlaylistItems, deletePlaylistItems, getPlaylistImage, getPlaylistItems } = require('../controllers/spotify.js');
 
 module.exports = router;
 
@@ -32,6 +32,15 @@ router.get('/playlists/:playlistID/shuffle', async (req, res, next) => {
 		await addPlaylistItems(req.session, req.params.playlistID, shuffle(items.map((x) => x.uri)));
 
 		return res.json({ 'description': 'This request was completed successfully' });
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ 'error': 'Something went terribly wrong on our side of the internet' });
+	}
+});
+
+router.get('/playlists/:playlistID/image', async (req, res, next) => {
+	try {
+		return res.json(await getPlaylistImage(req.session, req.params.playlistID));
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ 'error': 'Something went terribly wrong on our side of the internet' });
