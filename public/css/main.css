@@ -91,6 +91,7 @@ header > div {
 #userData > img:first-of-type {
 	width: 32px;
 	height: 32px;
+	pointer-events: none;
 }
 
 #userData > span {
