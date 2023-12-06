@@ -21,6 +21,12 @@ async function shufflePlaylist (event) {
 	try {
 		await getAPI(`playlists/${playlist.dataset.id}/shuffle`);
 
+		const image = await getPlaylistImage(playlist.dataset.id);
+		const element = playlist.querySelector('.playlistData > img');
+
+		// NOTE: Does NOT assign when 'image' is null (whenever an error was thrown)
+		Object.assign(element, { 'src': image.url, 'width': image.size, 'height': image.size });
+
 		done.classList.remove('hidden');
 	} catch {
 		error.classList.remove('hidden');
@@ -28,6 +34,15 @@ async function shufflePlaylist (event) {
 
 	progress.classList.add('hidden');
 	shuffleButton.disabled = false;
+}
+
+async function getPlaylistImage (playlistID) {
+	try {
+		return await getAPI(`playlists/${playlistID}/image`);
+	} catch (error) {
+		console.error(error);
+		return null;
+	}
 }
 
 async function getAPI (endpoint) {
