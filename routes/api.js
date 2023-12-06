@@ -18,18 +18,18 @@ router.use('/', (req, res, next) => {
 	return next();
 });
 
-router.get('/playlists/:playlistID/shuffle', async (req, res, next) => {
+router.post('/playlists/shuffle', async (req, res, next) => {
 	try {
-		const items = await getPlaylistItems(req.session, req.params.playlistID);
+		const items = await getPlaylistItems(req.session, req.body.id);
 
 		// NOTE: If there are no items to process, return early with 'NO CONTENT' status
 		if (!items.length) return res.status(204).json({ 'description': 'This request resulted in no content changes' });
 
 		// NOTE: Remove all items from original playlist so they can be re-added in shuffled order
-		await deletePlaylistItems(req.session, req.params.playlistID, items);
+		await deletePlaylistItems(req.session, req.body.id, items);
 
 		// NOTE: Re-add all items to original playlist in shuffled order
-		await addPlaylistItems(req.session, req.params.playlistID, shuffle(items.map((x) => x.uri)));
+		await addPlaylistItems(req.session, req.body.id, shuffle(items.map((x) => x.uri)));
 
 		return res.json({ 'description': 'This request was completed successfully' });
 	} catch (error) {

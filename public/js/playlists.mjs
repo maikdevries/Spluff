@@ -19,7 +19,11 @@ async function shufflePlaylist (event) {
 	progress.classList.remove('hidden');
 
 	try {
-		await getAPI(`playlists/${playlist.dataset.id}/shuffle`);
+		const data = {
+			'id': playlist.dataset.id,
+		}
+
+		await postAPI('playlists/shuffle', JSON.stringify(data));
 
 		const image = await getPlaylistImage(playlist.dataset.id);
 		const element = playlist.querySelector('.playlistData > img');
@@ -51,4 +55,18 @@ async function getAPI (endpoint) {
 	return response.ok
 		? await response.json()
 		: (() => { throw new Error(`GET API failed with status ${response.status}. URL: ${response.url}`) })();
+}
+
+async function postAPI (endpoint, data) {
+	const response = await fetch(`${document.location.origin}/api/v1/${endpoint}`, {
+		'method': 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: data,
+	});
+
+	return response.ok
+		? await response.json()
+		: (() => { throw new Error(`POST API failed with status ${response.status}. URL: ${response.url}`) })();
 }
