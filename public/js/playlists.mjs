@@ -19,11 +19,9 @@ async function shufflePlaylist (event) {
 	progress.classList.remove('hidden');
 
 	try {
-		const data = {
+		await postAPI('playlists/shuffle', {
 			'id': playlist.dataset.id,
-		}
-
-		await postAPI('playlists/shuffle', JSON.stringify(data));
+		});
 
 		const image = await getPlaylistImage(playlist.dataset.id);
 		const element = playlist.querySelector('.playlistData > img');
@@ -63,7 +61,7 @@ async function postAPI (endpoint, data) {
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: data,
+		body: JSON.stringify(data),
 	});
 
 	return response.ok

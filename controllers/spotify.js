@@ -65,11 +65,9 @@ async function getPlaylistItems (session, playlistID, offset = 0) {
 }
 
 async function addPlaylistItems (session, playlistID, items) {
-	const data = {
+	const snapshotID = await postFetch(`playlists/${playlistID}/tracks`, session.auth, {
 		uris: items.slice(0, 100),
-	}
-
-	const snapshotID = await postFetch(`playlists/${playlistID}/tracks`, JSON.stringify(data), session.auth);
+	});
 
 	// NOTE: If items remain to be added, recursively create requests until all playlist items have been added
 	if (items.length > 100) return await addPlaylistItems(session, playlistID, items.slice(100, items.length))
@@ -77,11 +75,9 @@ async function addPlaylistItems (session, playlistID, items) {
 }
 
 async function deletePlaylistItems (session, playlistID, items) {
-	const data = {
+	const snapshotID = await deleteFetch(`playlists/${playlistID}/tracks`, session.auth, {
 		tracks: items.slice(0, 100),
-	}
-
-	const snapshotID = await deleteFetch(`playlists/${playlistID}/tracks`, JSON.stringify(data), session.auth);
+	});
 
 	// NOTE: If items remain to be deleted, recursively create requests until all playlist items have been deleted
 	if (items.length > 100) return await deletePlaylistItems(session, playlistID, items.slice(100, items.length))
@@ -108,14 +104,14 @@ async function getFetch (endpoint, auth) {
 		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
 }
 
-async function postFetch (endpoint, data, auth) {
+async function postFetch (endpoint, auth, data) {
 	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
 		'method': 'POST',
 		headers: {
 			'Authorization': `Bearer ${auth.token}`,
 			'Content-Type': 'application/json',
 		},
-		body: data,
+		body: JSON.stringify(data),
 	});
 
 	return response.ok
@@ -123,14 +119,14 @@ async function postFetch (endpoint, data, auth) {
 		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
 }
 
-async function deleteFetch (endpoint, data, auth) {
+async function deleteFetch (endpoint, auth, data) {
 	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
 		'method': 'DELETE',
 		headers: {
 			'Authorization': `Bearer ${auth.token}`,
 			'Content-Type': 'application/json',
 		},
-		body: data,
+		body: JSON.stringify(data),
 	});
 
 	return response.ok

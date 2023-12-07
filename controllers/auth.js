@@ -3,18 +3,11 @@ module.exports = {
 }
 
 async function getToken (code) {
-	const headers = {
-		'Authorization': `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
-		'Content-Type': 'application/x-www-form-urlencoded',
-	}
-
-	const data = {
+	const authData = await authFetch({
 		'grant_type': 'authorization_code',
 		'code': code,
 		'redirect_uri': process.env.REDIRECT_URL,
-	}
-
-	const authData = await authFetch(headers, new URLSearchParams(data));
+	});
 
 	// NOTE: Keep 5 percent margin of error in authorisation 'expires' timestamp
 	return {
@@ -25,17 +18,10 @@ async function getToken (code) {
 }
 
 async function refreshToken (refreshToken) {
-	const headers = {
-		'Authorization': `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
-		'Content-Type': 'application/x-www-form-urlencoded',
-	}
-
-	const data = {
+	const authData = await authFetch({
 		'grant_type': 'refresh_token',
 		'refresh_token': refreshToken,
-	}
-
-	const authData = await authFetch(headers, new URLSearchParams(data));
+	});
 
 	// NOTE: Keep 5 percent margin of error in authorisation 'expires' timestamp
 	// NOTE: API response only contains (updated) 'refresh_token' if 'refreshToken' needs to be replaced
@@ -46,8 +32,15 @@ async function refreshToken (refreshToken) {
 	}
 }
 
-async function authFetch (headers, data) {
-	const response = await fetch('https://accounts.spotify.com/api/token', { 'method': 'POST', headers: headers, body: data });
+async function authFetch (data) {
+	const response = await fetch('https://accounts.spotify.com/api/token', {
+		'method': 'POST',
+		headers: {
+			'Authorization': `Basic ${Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')}`,
+			'Content-Type': 'application/x-www-form-urlencoded',
+		},
+		body: new URLSearchParams(data),
+	});
 
 	return response.ok
 		? await response.json()
