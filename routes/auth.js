@@ -9,7 +9,9 @@ router.get('/', (req, res, next) => {
 	// NOTE: Use 'base64url' over 'base64' to avoid possible URL parsing interpretation issues
 	const state = crypto.randomBytes(64).toString('base64url');
 	Object.assign(req.session, {
-		auth: { 'state': state },
+		auth: {
+			'state': state,
+		},
 	});
 
 	const params = {

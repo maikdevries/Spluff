@@ -96,7 +96,9 @@ async function getPlaylistImage (session, playlistID) {
 async function getFetch (endpoint, auth) {
 	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
 		'method': 'GET',
-		headers: { 'Authorization': `Bearer ${auth.token}` },
+		headers: {
+			'Authorization': `Bearer ${auth.token}`,
+		},
 	});
 
 	return response.ok
