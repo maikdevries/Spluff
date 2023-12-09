@@ -8,9 +8,15 @@ module.exports = router;
 router.get('/', (req, res, next) => {
 	// NOTE: Use 'base64url' over 'base64' to avoid possible URL parsing interpretation issues
 	const state = crypto.randomBytes(64).toString('base64url');
+
+	// NOTE: The PKCE standard states a maximum length of 128 characters, therefore ((128 / 4) * 3) bytes required
+	const codeVerifier = crypto.randomBytes(96).toString('base64url');
+	const codeChallenge = crypto.createHash('sha256').update(codeVerifier).digest().toString('base64url');
+
 	Object.assign(req.session, {
 		auth: {
 			'state': state,
+			'codeVerifier': codeVerifier,
 		},
 	});
 
@@ -20,6 +26,8 @@ router.get('/', (req, res, next) => {
 		'redirect_uri': process.env.REDIRECT_URL,
 		'state': state,
 		'scope': 'playlist-read-private playlist-modify-private playlist-modify-public',
+		'code_challenge_method': 'S256',
+		'code_challenge': codeChallenge,
 	}
 
 	return res.redirect(`https://accounts.spotify.com/authorize?${new URLSearchParams(params).toString()}`);
@@ -33,7 +41,7 @@ router.get('/login', async (req, res, next) => {
 	if (!req.query.code) return res.redirect('/auth');
 
 	try {
-		const authData = await getToken(req.query.code);
+		const authData = await getToken(req.query.code, req.session.auth.codeVerifier);
 
 		Object.assign(req.session, {
 			auth: authData,
