@@ -9,7 +9,7 @@ async function shufflePlaylist (event) {
 	if (!shuffleButton) return;
 
 	const playlist = shuffleButton.closest('.playlist');
-	const [_, done, error] = playlist.getElementsByTagName('img');
+	const [done, error] = playlist.querySelectorAll('.playlistActions > img');
 	const [progress] = playlist.getElementsByTagName('progress');
 
 	done.classList.add('hidden');
