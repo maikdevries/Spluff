@@ -20,16 +20,30 @@ router.use('/', (req, res, next) => {
 
 router.post('/playlists/shuffle', async (req, res, next) => {
 	try {
-		const items = await getPlaylistItems(req.session, req.body.id);
+		// NOTE: Retrieve playlist items from cache if available (whenever an error was thrown previously)
+		const items = req.session.cache?.[req.body.id] ?? await getPlaylistItems(req.session, req.body.id);
 
 		// NOTE: If there are no items to process, return early with explanatory body
 		if (!items.length) return res.json({ 'description': 'This request resulted in no content changes' });
+
+		// NOTE: Create cache entry for current playlist (avoid loss of data when error is thrown hereafter)
+		if (!req.session.cache?.[req.body.id]) {
+			Object.assign(req.session, {
+				cache: {
+					...req.session.cache,
+					[req.body.id]: items,
+				},
+			});
+		}
 
 		// NOTE: Remove all items from original playlist so they can be re-added in shuffled order
 		await deletePlaylistItems(req.session, req.body.id, items);
 
 		// NOTE: Re-add all items to original playlist in shuffled order
 		await addPlaylistItems(req.session, req.body.id, shuffle(items.map((x) => x.uri)));
+
+		// NOTE: When successful, clear cache of current playlist
+		delete req.session.cache[req.body.id];
 
 		return res.json({ 'description': 'This request was completed successfully' });
 	} catch (error) {
