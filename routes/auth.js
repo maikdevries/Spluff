@@ -37,8 +37,8 @@ router.get('/login', async (req, res, next) => {
 	// NOTE: If returned 'state' and session-stored 'state' mismatch, warn user of cross-site request forgery
 	if (req.query.state !== req.session.auth?.state) return res.redirect('/csrf');
 
-	// NOTE: If user did not authorise login, re-prompt user for authorisation
-	if (!req.query.code) return res.redirect('/auth');
+	// NOTE: If user did not authorise login, redirect back to the page they were on
+	if (!req.query.code) return res.redirect('back');
 
 	try {
 		const authData = await getToken(req.query.code, req.session.auth.codeVerifier);
