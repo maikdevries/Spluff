@@ -27,6 +27,7 @@ app.use(session({
 	store: new MemoryStore({
 		'checkPeriod': 86400000,
 	}),
+	'unset': 'destroy',
 }));
 
 app.use(Express.json());
