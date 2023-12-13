@@ -16,6 +16,7 @@ app.set('view engine', 'njk');
 app.use(session({
 	cookie: {
 		'maxAge': 86400000,
+		'sameSite': 'lax',
 		'secure': true,
 	},
 	'name': 'sessionID',
