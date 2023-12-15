@@ -1,5 +1,5 @@
 module.exports = {
-	shuffle,
+	shuffle, fetchJSON,
 }
 
 // NOTE: Durstenfeld variant of the Fisher-Yates shuffle algorithm
@@ -11,4 +11,16 @@ function shuffle (array) {
 	}
 
 	return array;
+}
+
+async function fetchJSON (method, url, headers, body) {
+	const response = await fetch(url, {
+		'method': method,
+		headers: headers,
+		...(body && { body: body }),
+	});
+
+	return response.ok
+		? await response.json()
+		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
 }

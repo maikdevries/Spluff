@@ -1,3 +1,5 @@
+const { fetchJSON } = require('./utils.js');
+
 module.exports = {
 	getToken, refreshToken,
 }
@@ -36,15 +38,12 @@ async function refreshToken (refreshToken) {
 }
 
 async function authFetch (data) {
-	const response = await fetch('https://accounts.spotify.com/api/token', {
-		'method': 'POST',
-		headers: {
+	return await fetchJSON(
+		'POST',
+		'https://accounts.spotify.com/api/token',
+		{
 			'Content-Type': 'application/x-www-form-urlencoded',
 		},
-		body: new URLSearchParams(data),
-	});
-
-	return response.ok
-		? await response.json()
-		: (() => { throw new Error(`Fetching Spotify Auth API failed with status ${response.status}. URL: ${response.url}`)	})();
+		new URLSearchParams(data),
+	);
 }

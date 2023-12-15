@@ -1,3 +1,5 @@
+const { fetchJSON } = require('./utils.js');
+
 module.exports = {
 	getUser, getPlaylists, getPlaylistItems, addPlaylistItems, deletePlaylistItems, getPlaylistImage,
 }
@@ -94,44 +96,36 @@ async function getPlaylistImage (session, playlistID) {
 }
 
 async function getFetch (endpoint, auth) {
-	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-		'method': 'GET',
-		headers: {
+	return await fetchJSON(
+		'GET',
+		`https://api.spotify.com/v1/${endpoint}`,
+		{
 			'Authorization': `Bearer ${auth.token}`,
 		},
-	});
-
-	return response.ok
-		? await response.json()
-		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
+		null,
+	);
 }
 
 async function postFetch (endpoint, auth, data) {
-	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-		'method': 'POST',
-		headers: {
+	return await fetchJSON(
+		'POST',
+		`https://api.spotify.com/v1/${endpoint}`,
+		{
 			'Authorization': `Bearer ${auth.token}`,
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(data),
-	});
-
-	return response.ok
-		? await response.json()
-		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
+		JSON.stringify(data),
+	);
 }
 
 async function deleteFetch (endpoint, auth, data) {
-	const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-		'method': 'DELETE',
-		headers: {
+	return await fetchJSON(
+		'DELETE',
+		`https://api.spotify.com/v1/${endpoint}`,
+		{
 			'Authorization': `Bearer ${auth.token}`,
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(data),
-	});
-
-	return response.ok
-		? await response.json()
-		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
+		JSON.stringify(data),
+	);
 }
