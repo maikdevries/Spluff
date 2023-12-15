@@ -1,3 +1,5 @@
+const { setTimeout } = require('node:timers/promises');
+
 module.exports = {
 	shuffle, fetchJSON,
 }
@@ -13,12 +15,18 @@ function shuffle (array) {
 	return array;
 }
 
-async function fetchJSON (method, url, headers, body) {
+async function fetchJSON (method, url, headers, body, retries = 0) {
 	const response = await fetch(url, {
 		'method': method,
 		headers: headers,
 		...(body && { body: body }),
 	});
+
+	// NOTE: When exceeding rate limits, retry after specified time in HTTP 'Retry-After' header (seconds)
+	if (response.status === 429 && retries < 3) {
+		await setTimeout(Number.parseInt(response.headers.get('Retry-After')) * 1000);
+		return fetchJSON(method, url, headers, body, retries + 1);
+	}
 
 	return response.ok
 		? await response.json()
