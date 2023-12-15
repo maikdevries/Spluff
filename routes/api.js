@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { shuffle } = require('../controllers/algorithms.js');
+const { shuffle } = require('../controllers/utils.js');
 const { addPlaylistItems, deletePlaylistItems, getPlaylistImage, getPlaylistItems } = require('../controllers/spotify.js');
 
 module.exports = router;
