@@ -30,5 +30,18 @@ async function fetchJSON (method, url, headers, body, retries = 0) {
 
 	return response.ok
 		? await response.json()
-		: (() => { throw new Error(`Fetching Spotify Web API failed with status ${response.status}. URL: ${response.url}`) })();
+		: (() => { throw new FetchError(response.status, response.url) })();
+}
+
+class FetchError extends Error {
+	#status;
+
+	constructor (status, url) {
+		super(`Fetch request failed with status ${status}. URL: ${url}`);
+		this.#status = status;
+	}
+
+	get status () {
+		return this.#status;
+	}
 }
