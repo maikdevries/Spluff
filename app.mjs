@@ -1,13 +1,17 @@
-require('dotenv').config();
+import 'dotenv/config'
 
-const Express = require('express');
-const session = require('express-session');
-const MemoryStore = require('memorystore')(session);
-const nunjucks = require('nunjucks');
+import Express from 'express';
+import session from 'express-session';
+import memoryStore from 'memorystore';
+import nunjucks from 'nunjucks';
+
+import router from './routes/router.mjs';
+import packageData from './package.json' assert { 'type': 'json' };
 
 const app = Express();
+const MemoryStore = memoryStore(session);
 
-nunjucks.configure(`${__dirname}/views`, {
+nunjucks.configure(`${import.meta.dirname}/views`, {
 	express: app,
 });
 
@@ -38,7 +42,7 @@ app.use('/', (req, res, next) => {
 	app.locals = {
 		app: {
 			'copyright': (new Date()).getFullYear(),
-			'version': require('./package.json').version,
+			'version': packageData.version,
 		},
 	}
 
@@ -51,6 +55,6 @@ app.use((error, req, res, next) => {
 	return res.redirect('/error');
 });
 
-app.use(require('./routes/router.js'));
+app.use(router);
 
 app.listen(process.env.PORT, () => console.log('HTTP backend server successfully launched!'));

@@ -1,10 +1,14 @@
-const router = require('express').Router();
-const { getPlaylists } = require('../controllers/spotify.js');
+import { Router } from 'express';
+import { getPlaylists } from '../controllers/spotify.mjs';
 
-module.exports = router;
+import authRouter from './auth.mjs';
+import apiRouter from './api.mjs';
 
-router.use('/auth', require('./auth.js'));
-router.use('/api/v1', require('./api.js'));
+const router = Router();
+export default router;
+
+router.use('/auth', authRouter);
+router.use('/api/v1', apiRouter);
 
 router.use('/', (req, res, next) => {
 	// NOTE: Expose session information to template rendering engine

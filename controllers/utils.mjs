@@ -1,11 +1,7 @@
-const { setTimeout } = require('node:timers/promises');
-
-module.exports = {
-	shuffle, fetchJSON,
-}
+import { setTimeout } from 'node:timers/promises';
 
 // NOTE: Durstenfeld variant of the Fisher-Yates shuffle algorithm
-function shuffle (array) {
+export function shuffle (array) {
 	for (let i = array.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
 
@@ -15,7 +11,7 @@ function shuffle (array) {
 	return array;
 }
 
-async function fetchJSON (method, url, headers, body, retries = 0) {
+export async function fetchJSON (method, url, headers, body, retries = 0) {
 	const response = await fetch(url, {
 		'method': method,
 		headers: headers,

@@ -1,10 +1,6 @@
-const { fetchJSON } = require('./utils.js');
+import { fetchJSON } from './utils.mjs';
 
-module.exports = {
-	getUser, getPlaylists, getPlaylistItems, addPlaylistItems, deletePlaylistItems, getPlaylistImage,
-}
-
-async function getUser (session) {
+export async function getUser (session) {
 	const userData = await getFetch('me', session.auth);
 
 	return {
@@ -18,7 +14,7 @@ async function getUser (session) {
 	}
 }
 
-async function getPlaylists (session, offset = 0) {
+export async function getPlaylists (session, offset = 0) {
 	const params = {
 		'limit': 50,
 		'offset': offset,
@@ -48,7 +44,7 @@ async function getPlaylists (session, offset = 0) {
 	return filteredEntries;
 }
 
-async function getPlaylistItems (session, playlistID, offset = 0) {
+export async function getPlaylistItems (session, playlistID, offset = 0) {
 	const params = {
 		'fields': 'next, items.track.uri',
 		'limit': 50,
@@ -66,7 +62,7 @@ async function getPlaylistItems (session, playlistID, offset = 0) {
 	return allItems;
 }
 
-async function addPlaylistItems (session, playlistID, items) {
+export async function addPlaylistItems (session, playlistID, items) {
 	const snapshotID = await postFetch(`playlists/${playlistID}/tracks`, session.auth, {
 		uris: items.slice(0, 100),
 	});
@@ -76,7 +72,7 @@ async function addPlaylistItems (session, playlistID, items) {
 	else return snapshotID;
 }
 
-async function deletePlaylistItems (session, playlistID, items) {
+export async function deletePlaylistItems (session, playlistID, items) {
 	const snapshotID = await deleteFetch(`playlists/${playlistID}/tracks`, session.auth, {
 		tracks: items.slice(0, 100),
 	});
@@ -86,7 +82,7 @@ async function deletePlaylistItems (session, playlistID, items) {
 	else return snapshotID;
 }
 
-async function getPlaylistImage (session, playlistID) {
+export async function getPlaylistImage (session, playlistID) {
 	const imageData = await getFetch(`playlists/${playlistID}/images`, session.auth);
 
 	return {

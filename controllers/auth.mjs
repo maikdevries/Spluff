@@ -1,10 +1,6 @@
-const { fetchJSON } = require('./utils.js');
+import { fetchJSON } from './utils.mjs';
 
-module.exports = {
-	getToken, refreshToken,
-}
-
-async function getToken (code, codeVerifier) {
+export async function getToken (code, codeVerifier) {
 	const authData = await authFetch({
 		'grant_type': 'authorization_code',
 		'code': code,
@@ -21,7 +17,7 @@ async function getToken (code, codeVerifier) {
 	}
 }
 
-async function refreshToken (refreshToken) {
+export async function refreshToken (refreshToken) {
 	const authData = await authFetch({
 		'grant_type': 'refresh_token',
 		'refresh_token': refreshToken,

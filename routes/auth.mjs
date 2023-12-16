@@ -1,9 +1,10 @@
-const router = require('express').Router();
-const crypto = require('node:crypto');
-const { getToken, refreshToken } = require('../controllers/auth.js');
-const { getUser } = require('../controllers/spotify.js');
+import { Router } from 'express';
+import crypto from 'node:crypto';
+import { getToken, refreshToken } from '../controllers/auth.mjs';
+import { getUser } from '../controllers/spotify.mjs';
 
-module.exports = router;
+const router = Router();
+export default router;
 
 router.get('/', (req, res, next) => {
 	// NOTE: Use 'base64url' over 'base64' to avoid possible URL parsing interpretation issues

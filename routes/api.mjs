@@ -1,8 +1,9 @@
-const router = require('express').Router();
-const { shuffle } = require('../controllers/utils.js');
-const { addPlaylistItems, deletePlaylistItems, getPlaylistImage, getPlaylistItems } = require('../controllers/spotify.js');
+import { Router } from 'express';
+import { shuffle } from '../controllers/utils.mjs';
+import { addPlaylistItems, deletePlaylistItems, getPlaylistImage, getPlaylistItems } from '../controllers/spotify.mjs';
 
-module.exports = router;
+const router = Router();
+export default router;
 
 router.use('/', (req, res, next) => {
 	// NOTE: If session-stored authorisation is missing, deny request and return 'UNAUTHORISED' status
