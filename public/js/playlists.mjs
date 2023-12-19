@@ -1,3 +1,5 @@
+import { FetchError } from './classes.mjs';
+
 document.getElementById('playlistContainer').addEventListener('click', (event) => shufflePlaylist(event), {
 	'capture': true,
 	'once': false,
@@ -54,7 +56,7 @@ async function getAPI (endpoint) {
 
 	return response.ok
 		? await response.json()
-		: (() => { throw new Error(`GET API failed with status ${response.status}. URL: ${response.url}`) })();
+		: (() => { throw new FetchError(response.status, response.url) })();
 }
 
 async function postAPI (endpoint, data) {
@@ -68,5 +70,5 @@ async function postAPI (endpoint, data) {
 
 	return response.ok
 		? await response.json()
-		: (() => { throw new Error(`POST API failed with status ${response.status}. URL: ${response.url}`) })();
+		: (() => { throw new FetchError(response.status, response.url) })();
 }
