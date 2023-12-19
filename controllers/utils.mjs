@@ -1,4 +1,5 @@
 import { setTimeout } from 'node:timers/promises';
+import { FetchError } from '../public/js/classes.mjs';
 
 // NOTE: Durstenfeld variant of the Fisher-Yates shuffle algorithm
 export function shuffle (array) {
@@ -27,17 +28,4 @@ export async function fetchJSON (method, url, headers, body, retries = 0) {
 	return response.ok
 		? await response.json()
 		: (() => { throw new FetchError(response.status, response.url) })();
-}
-
-class FetchError extends Error {
-	#status;
-
-	constructor (status, url) {
-		super(`Fetch request failed with status ${status}. URL: ${url}`);
-		this.#status = status;
-	}
-
-	get status () {
-		return this.#status;
-	}
 }
