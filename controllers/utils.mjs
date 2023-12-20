@@ -15,7 +15,7 @@ export function shuffle (array) {
 export async function fetchJSON (method, url, headers, body, retries = 0) {
 	const response = await fetch(url, {
 		'method': method,
-		headers: headers,
+		...(headers && { headers: headers }),
 		...(body && { body: body }),
 	});
 
