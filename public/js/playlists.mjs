@@ -50,22 +50,30 @@ async function getPlaylistImage (playlistID) {
 }
 
 async function getAPI (endpoint) {
-	const response = await fetch(`${document.location.origin}/api/v1/${endpoint}`, {
-		'method': 'GET',
-	});
-
-	return response.ok
-		? await response.json()
-		: (() => { throw new FetchError(response.status, response.url) })();
+	return await fetchJSON(
+		'GET',
+		`${document.location.origin}/api/v1/${endpoint}`,
+		null,
+		null,
+	);
 }
 
 async function postAPI (endpoint, data) {
-	const response = await fetch(`${document.location.origin}/api/v1/${endpoint}`, {
-		'method': 'POST',
-		headers: {
+	return await fetchJSON(
+		'POST',
+		`${document.location.origin}/api/v1/${endpoint}`,
+		{
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(data),
+		JSON.stringify(data),
+	);
+}
+
+async function fetchJSON (method, url, headers, body) {
+	const response = await fetch(url, {
+		'method': method,
+		...(headers && { headers: headers }),
+		...(body && { body: body }),
 	});
 
 	return response.ok
