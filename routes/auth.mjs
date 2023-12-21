@@ -50,7 +50,12 @@ router.get('/login', async (req, res, next) => {
 		});
 
 		return res.redirect('/playlists');
-	} catch (error) { return next(error) }
+	} catch (error) {
+		// NOTE: If authorisation has been refused for given credentials, user needs to be re-prompted for authorisation
+		if (error instanceof FetchError && error.status === 401) return res.redirect('/auth');
+
+		return next(error);
+	}
 });
 
 router.get('/refresh', async (req, res, next) => {
@@ -67,7 +72,12 @@ router.get('/refresh', async (req, res, next) => {
 
 		// NOTE: Redirect user back to the actual route they requested
 		return res.redirect('back');
-	} catch (error) { return next(error) }
+	} catch (error) {
+		// NOTE: If authorisation has been refused for stored credentials, user needs to be re-authenticated
+		if (error instanceof FetchError && error.status === 401) return res.redirect('/auth');
+
+		return next(error);
+	}
 });
 
 router.get('/logout', (req, res, next) => {
