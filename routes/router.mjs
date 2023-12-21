@@ -36,9 +36,16 @@ router.use('/playlists', (req, res, next) => {
 });
 
 router.get('/playlists', async (req, res, next) => {
-	return res.render('playlists', {
-		playlists: await getPlaylists(req.session),
-	});
+	try {
+		return res.render('playlists', {
+			playlists: await getPlaylists(req.session),
+		});
+	} catch (error) {
+		// NOTE: If authorisation has been refused for stored credentials, user needs to be re-authenticated
+		if (error instanceof FetchError && error.status === 401) return res.redirect('/auth');
+
+		return next(error);
+	}
 });
 
 router.get('/csrf', (req, res, next) => {
