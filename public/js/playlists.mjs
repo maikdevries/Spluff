@@ -32,7 +32,11 @@ async function shufflePlaylist (event) {
 		Object.assign(element, { 'src': image.url, 'width': image.size, 'height': image.size });
 
 		done.classList.remove('hidden');
-	} catch {
+	} catch (error) {
+		// NOTE: If request has been refused due to invalid authorisation, user needs to be re-prompted for authorisation
+		if (error instanceof FetchError && error.status === 401) return window.location.assign('/auth');
+
+		console.error(error);
 		error.classList.remove('hidden');
 	}
 
@@ -44,6 +48,9 @@ async function getPlaylistImage (playlistID) {
 	try {
 		return await getAPI(`playlists/${playlistID}/image`);
 	} catch (error) {
+		// NOTE: If request has been refused due to invalid authorisation, user needs to be re-prompted for authorisation
+		if (error instanceof FetchError && error.status === 401) return window.location.assign('/auth');
+
 		console.error(error);
 		return null;
 	}
