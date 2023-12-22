@@ -5,7 +5,6 @@ import session from 'express-session';
 import memoryStore from 'memorystore';
 import nunjucks from 'nunjucks';
 
-import router from './routes/router.mjs';
 import packageData from './package.json' assert { 'type': 'json' };
 
 const app = Express();
@@ -55,6 +54,6 @@ app.use((error, req, res, next) => {
 	return res.redirect('/error');
 });
 
-app.use(router);
+app.use((await import('./routes/router.mjs')).default);
 
 app.listen(process.env.PORT, () => console.log('HTTP backend server successfully launched!'));
