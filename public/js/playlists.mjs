@@ -1,4 +1,4 @@
-import { FetchError } from './classes.mjs';
+import { FetchError } from './utils.mjs';
 
 document.getElementById('playlistContainer').addEventListener('click', (event) => shufflePlaylist(event), {
 	'capture': true,

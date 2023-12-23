@@ -1,5 +1,5 @@
 import { setTimeout } from 'node:timers/promises';
-import { FetchError } from '../public/js/classes.mjs';
+import { FetchError } from '../public/js/utils.mjs';
 
 // NOTE: Durstenfeld variant of the Fisher-Yates shuffle algorithm
 export function shuffle (array) {
