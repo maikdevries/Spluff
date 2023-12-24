@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { getPlaylists } from '../controllers/spotify.mjs';
+import { handleFetchError } from '../controllers/utils.mjs';
 
 const router = Router();
 export default router;
@@ -37,12 +38,7 @@ router.get('/playlists', async (req, res, next) => {
 		return res.render('playlists', {
 			playlists: await getPlaylists(req.session),
 		});
-	} catch (error) {
-		// NOTE: If authorisation has been refused for stored credentials, user needs to be re-authenticated
-		if (error instanceof FetchError && error.status === 401) return res.redirect('/auth');
-
-		return next(error);
-	}
+	} catch (error) { return handleFetchError(error, req, res, next) }
 });
 
 router.get('/csrf', (req, res, next) => {

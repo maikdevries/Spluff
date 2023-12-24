@@ -2,6 +2,7 @@ import { Router } from 'express';
 import crypto from 'node:crypto';
 import { getToken, refreshToken } from '../controllers/auth.mjs';
 import { getUser } from '../controllers/spotify.mjs';
+import { handleFetchError } from '../controllers/utils.mjs';
 
 const router = Router();
 export default router;
@@ -50,12 +51,7 @@ router.get('/login', async (req, res, next) => {
 		});
 
 		return res.redirect('/playlists');
-	} catch (error) {
-		// NOTE: If authorisation has been refused for given credentials, user needs to be re-prompted for authorisation
-		if (error instanceof FetchError && error.status === 401) return res.redirect('/auth');
-
-		return next(error);
-	}
+	} catch (error) { return handleFetchError(error, req, res, next) }
 });
 
 router.get('/refresh', async (req, res, next) => {
@@ -72,12 +68,7 @@ router.get('/refresh', async (req, res, next) => {
 
 		// NOTE: Redirect user back to the actual route they requested
 		return res.redirect('back');
-	} catch (error) {
-		// NOTE: If authorisation has been refused for stored credentials, user needs to be re-authenticated
-		if (error instanceof FetchError && error.status === 401) return res.redirect('/auth');
-
-		return next(error);
-	}
+	} catch (error) { return handleFetchError(error, req, res, next) }
 });
 
 router.get('/logout', (req, res, next) => {

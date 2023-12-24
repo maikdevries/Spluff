@@ -29,3 +29,10 @@ export async function fetchJSON (method, url, headers, body, retries = 0) {
 		? await response.json()
 		: (() => { throw new FetchError(response.status, response.url) })();
 }
+
+export function handleFetchError (error, req, res, next) {
+	// NOTE: If authorisation has been refused for stored credentials, user needs to be re-authenticated
+	if (error instanceof FetchError && error.status === 401) return res.redirect('/auth');
+
+	return next(error);
+}
