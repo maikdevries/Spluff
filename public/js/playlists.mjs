@@ -11,11 +11,11 @@ async function shufflePlaylist (event) {
 	if (!shuffleButton) return;
 
 	const playlist = shuffleButton.closest('.playlist');
-	const [done, error] = playlist.querySelectorAll('.playlistActions > img');
+	const [doneElement, errorElement] = playlist.querySelectorAll('.playlistActions > img');
 	const [progress] = playlist.getElementsByTagName('progress');
 
-	done.classList.add('hidden');
-	error.classList.add('hidden');
+	doneElement.classList.add('hidden');
+	errorElement.classList.add('hidden');
 
 	shuffleButton.disabled = true;
 	progress.classList.remove('hidden');
@@ -31,13 +31,13 @@ async function shufflePlaylist (event) {
 		// NOTE: Does NOT assign when 'image' is null (whenever an error was thrown)
 		Object.assign(element, { 'src': image.url, 'width': image.size, 'height': image.size });
 
-		done.classList.remove('hidden');
+		doneElement.classList.remove('hidden');
 	} catch (error) {
 		// NOTE: If request has been refused due to invalid authorisation, user needs to be re-prompted for authorisation
 		if (error instanceof FetchError && error.status === 401) return window.location.assign('/auth');
 
 		console.error(error);
-		error.classList.remove('hidden');
+		errorElement.classList.remove('hidden');
 	}
 
 	progress.classList.add('hidden');
