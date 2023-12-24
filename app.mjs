@@ -49,8 +49,7 @@ app.use('/', (req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-	console.error(error.toString());
-
+	console.error(error);
 	return res.redirect('/error');
 });
 
