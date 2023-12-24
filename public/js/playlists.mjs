@@ -1,4 +1,4 @@
-import { FetchError } from './utils.mjs';
+import { fetchAPI } from './utils.mjs';
 
 document.getElementById('playlistContainer').addEventListener('click', (event) => shufflePlaylist(event), {
 	'capture': true,
@@ -57,7 +57,7 @@ async function getPlaylistImage (playlistID) {
 }
 
 async function getAPI (endpoint) {
-	return await fetchJSON(
+	return await fetchAPI(
 		'GET',
 		`${document.location.origin}/api/v1/${endpoint}`,
 		null,
@@ -66,7 +66,7 @@ async function getAPI (endpoint) {
 }
 
 async function postAPI (endpoint, data) {
-	return await fetchJSON(
+	return await fetchAPI(
 		'POST',
 		`${document.location.origin}/api/v1/${endpoint}`,
 		{
@@ -74,16 +74,4 @@ async function postAPI (endpoint, data) {
 		},
 		JSON.stringify(data),
 	);
-}
-
-async function fetchJSON (method, url, headers, body) {
-	const response = await fetch(url, {
-		'method': method,
-		...(headers && { headers: headers }),
-		...(body && { body: body }),
-	});
-
-	return response.ok
-		? await response.json()
-		: (() => { throw new FetchError(response.status, response.url) })();
 }
