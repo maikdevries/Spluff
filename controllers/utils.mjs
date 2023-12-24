@@ -36,3 +36,13 @@ export function handleFetchError (error, req, res, next) {
 
 	return next(error);
 }
+
+export function handleAPIFetchError (error, req, res, next) {
+	// NOTE: If session-stored authorisation has been invalidated, return 'UNAUTHORISED' status
+	if (error instanceof FetchError && error.status === 401) return res.status(401).json({
+		'error': 'This request associated authorisation has been invalidated',
+	});
+
+	console.error(error);
+	return res.status(500).json({ 'error': 'Something went terribly wrong on our side of the internet' });
+}
