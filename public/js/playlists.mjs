@@ -29,7 +29,7 @@ async function shufflePlaylist (event) {
 		const element = playlist.querySelector('.playlistData > img');
 
 		// NOTE: Does NOT assign when 'image' is null (whenever an error was thrown)
-		Object.assign(element, { 'src': image.url, 'width': image.size, 'height': image.size });
+		if (image) Object.assign(element, { 'src': image.url, 'width': image.size, 'height': image.size });
 
 		doneElement.classList.remove('hidden');
 	} catch (error) { handleFetchError(error, () => errorElement.classList.remove('hidden')) }
