@@ -1,4 +1,4 @@
-import { fetchAPI } from './utils.mjs';
+import { fetchAPI, handleFetchError } from './utils.mjs';
 
 document.getElementById('playlistContainer').addEventListener('click', (event) => shufflePlaylist(event), {
 	'capture': true,
@@ -32,13 +32,7 @@ async function shufflePlaylist (event) {
 		Object.assign(element, { 'src': image.url, 'width': image.size, 'height': image.size });
 
 		doneElement.classList.remove('hidden');
-	} catch (error) {
-		// NOTE: If request has been refused due to invalid authorisation, user needs to be re-prompted for authorisation
-		if (error instanceof FetchError && error.status === 401) return window.location.assign('/auth');
-
-		console.error(error);
-		errorElement.classList.remove('hidden');
-	}
+	} catch (error) { handleFetchError(error, () => errorElement.classList.remove('hidden')) }
 
 	progress.classList.add('hidden');
 	shuffleButton.disabled = false;
@@ -47,13 +41,7 @@ async function shufflePlaylist (event) {
 async function getPlaylistImage (playlistID) {
 	try {
 		return await getAPI(`playlists/${playlistID}/image`);
-	} catch (error) {
-		// NOTE: If request has been refused due to invalid authorisation, user needs to be re-prompted for authorisation
-		if (error instanceof FetchError && error.status === 401) return window.location.assign('/auth');
-
-		console.error(error);
-		return null;
-	}
+	} catch (error) { handleFetchError(error, null) }
 }
 
 async function getAPI (endpoint) {

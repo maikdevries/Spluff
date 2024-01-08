@@ -22,3 +22,12 @@ export async function fetchAPI (method, url, headers, body) {
 		? await response.json()
 		: (() => { throw new FetchError(response.status, response.url) })();
 }
+
+export function handleFetchError (error, callback) {
+	// NOTE: If request has been refused due to invalid authorisation, user needs to be re-prompted for authorisation
+	if (error instanceof FetchError && error.status === 401) return window.location.assign('/auth');
+
+	// NOTE: If error has not been handled, log to console and call callback (if not null)
+	console.error(error);
+	return callback?.();
+}
