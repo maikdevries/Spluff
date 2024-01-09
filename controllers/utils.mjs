@@ -12,7 +12,7 @@ export function shuffle (array) {
 	return array;
 }
 
-export async function fetchJSON (method, url, headers, body, retries = 0) {
+export async function fetchJSON (method, url, headers = null, body = null, retries = 0) {
 	const response = await fetch(url, {
 		'method': method,
 		...(headers && { headers: headers }),

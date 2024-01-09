@@ -98,7 +98,6 @@ async function getFetch (endpoint, auth) {
 		{
 			'Authorization': `Bearer ${auth.token}`,
 		},
-		null,
 	);
 }
 

@@ -11,7 +11,7 @@ export class FetchError extends Error {
 	}
 }
 
-export async function fetchAPI (method, url, headers, body) {
+export async function fetchAPI (method, url, headers = null, body = null) {
 	const response = await fetch(url, {
 		'method': method,
 		...(headers && { headers: headers }),
@@ -23,7 +23,7 @@ export async function fetchAPI (method, url, headers, body) {
 		: (() => { throw new FetchError(response.status, response.url) })();
 }
 
-export function handleFetchError (error, callback) {
+export function handleFetchError (error, callback = null) {
 	// NOTE: If request has been refused due to invalid authorisation, user needs to be re-prompted for authorisation
 	if (error instanceof FetchError && error.status === 401) return window.location.assign('/auth');
 

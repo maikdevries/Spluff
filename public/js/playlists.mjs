@@ -41,15 +41,13 @@ async function shufflePlaylist (event) {
 async function getPlaylistImage (playlistID) {
 	try {
 		return await getAPI(`playlists/${playlistID}/image`);
-	} catch (error) { handleFetchError(error, null) }
+	} catch (error) { handleFetchError(error) }
 }
 
 async function getAPI (endpoint) {
 	return await fetchAPI(
 		'GET',
 		`${document.location.origin}/api/v1/${endpoint}`,
-		null,
-		null,
 	);
 }
 
