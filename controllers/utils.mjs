@@ -43,6 +43,11 @@ export function handleAPIFetchError (error, req, res, next) {
 		'error': 'This request associated authorisation has been invalidated',
 	});
 
+	// NOTE: If session-stored authorisation does not permit access to the requested resource, return 'FORBIDDEN' status
+	if (error instanceof FetchError && error.status === 403) return res.status(403).json({
+		'error': 'This request associated authorisation does not permit access to the requested resource',
+	});
+
 	console.error(error);
 	return res.status(500).json({ 'error': 'Something went terribly wrong on our side of the internet' });
 }
