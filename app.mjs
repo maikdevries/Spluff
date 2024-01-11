@@ -5,7 +5,7 @@ import session from 'express-session';
 import memoryStore from 'memorystore';
 import nunjucks from 'nunjucks';
 
-import packageData from './package.json' assert { 'type': 'json' };
+import packageData from './package.json' with { 'type': 'json' };
 
 const app = Express();
 const MemoryStore = memoryStore(session);
