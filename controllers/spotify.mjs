@@ -94,7 +94,7 @@ export async function getPlaylistImage (session, playlistID) {
 async function getFetch (endpoint, auth) {
 	return await fetchJSON(
 		'GET',
-		`https://api.spotify.com/v1/${endpoint}`,
+		new URL(endpoint, 'https://api.spotify.com/v1/'),
 		{
 			'Authorization': `Bearer ${auth.token}`,
 		},
@@ -104,7 +104,7 @@ async function getFetch (endpoint, auth) {
 async function postFetch (endpoint, auth, data) {
 	return await fetchJSON(
 		'POST',
-		`https://api.spotify.com/v1/${endpoint}`,
+		new URL(endpoint, 'https://api.spotify.com/v1/'),
 		{
 			'Authorization': `Bearer ${auth.token}`,
 			'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ async function postFetch (endpoint, auth, data) {
 async function deleteFetch (endpoint, auth, data) {
 	return await fetchJSON(
 		'DELETE',
-		`https://api.spotify.com/v1/${endpoint}`,
+		new URL(endpoint, 'https://api.spotify.com/v1/'),
 		{
 			'Authorization': `Bearer ${auth.token}`,
 			'Content-Type': 'application/json',

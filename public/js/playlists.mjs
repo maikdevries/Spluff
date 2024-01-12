@@ -47,14 +47,14 @@ async function getPlaylistImage (playlistID) {
 async function getAPI (endpoint) {
 	return await fetchAPI(
 		'GET',
-		`${document.location.origin}/api/v1/${endpoint}`,
+		new URL(endpoint, new URL('api/v1/', document.location.origin)),
 	);
 }
 
 async function postAPI (endpoint, data) {
 	return await fetchAPI(
 		'POST',
-		`${document.location.origin}/api/v1/${endpoint}`,
+		new URL(endpoint, new URL('api/v1/', document.location.origin)),
 		{
 			'Content-Type': 'application/json',
 		},

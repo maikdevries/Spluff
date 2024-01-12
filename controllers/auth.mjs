@@ -36,7 +36,7 @@ export async function refreshToken (refreshToken) {
 async function authFetch (data) {
 	return await fetchJSON(
 		'POST',
-		'https://accounts.spotify.com/api/token',
+		new URL('https://accounts.spotify.com/api/token'),
 		{
 			'Content-Type': 'application/x-www-form-urlencoded',
 		},
