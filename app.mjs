@@ -10,7 +10,7 @@ import packageData from './package.json' with { 'type': 'json' };
 const app = Express();
 const MemoryStore = memoryStore(session);
 
-nunjucks.configure(`${import.meta.dirname}/views`, {
+nunjucks.configure('views', {
 	express: app,
 });
 
