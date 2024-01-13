@@ -50,7 +50,7 @@ app.use('/', (req, res, next) => {
 
 app.use((error, req, res, next) => {
 	console.error(error);
-	return res.redirect('/error');
+	return res.render('error', error);
 });
 
 app.use((await import('./routes/router.mjs')).default);

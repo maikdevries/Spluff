@@ -44,7 +44,3 @@ router.get('/playlists', async (req, res, next) => {
 router.get('/csrf', (req, res, next) => {
 	return res.send('NOT IMPLEMENTED: /csrf GET');
 });
-
-router.get('/error', (req, res, next) => {
-	return res.send('NOT IMPLEMENTED: /error GET');
-});
