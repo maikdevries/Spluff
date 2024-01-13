@@ -42,5 +42,10 @@ router.get('/playlists', async (req, res, next) => {
 });
 
 router.get('/csrf', (req, res, next) => {
-	return res.send('NOT IMPLEMENTED: /csrf GET');
+	return res.render('error', {
+		error: {
+			'status': 'CSRF',
+			'description': 'Someone tried to tamper with your connection.',
+		},
+	});
 });
