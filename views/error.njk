@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+	<head>
+
+		{% include './partials/head.njk' %}
+
+		<link rel='stylesheet' href='/css/error.css'>
+
+	</head>
+
+	<body>
+
+		<header>
+
+			{% include './partials/header.njk' %}
+
+		</header>
+
+		<main>
+
+			<div id='errorContainer'>
+				<span><span>ERROR</span> {{ error.status | default(500) }}</span>
+				<span>{{ error.description | default('Something happened that should have never happened...') }}</span>
+
+				<p>
+					If you keep finding your way back to this place, it is probably a good idea to
+					<span><a href='mailto:support@maikdevries.com'>send an email</a></span> for support.
+				</p>
+			</div>
+
+		</main>
+
+		<footer>
+
+			{% include './partials/footer.njk' %}
+
+		</footer>
+
+	</body>
+
+</html>

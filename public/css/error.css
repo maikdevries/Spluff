@@ -1,0 +1,27 @@
+#errorContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+#errorContainer > span {
+	font: 1rem/1.4 monospace;
+}
+
+#errorContainer > span:first-of-type {
+	color: var(--colour-spotify-green);
+	font-size: 3rem;
+}
+
+#errorContainer > span > span {
+	color: var(--colour-grey);
+}
+
+#errorContainer > p {
+	margin: 50px 0 0 0;
+	font-size: 0.8rem;
+}
+
+#errorContainer > p > span {
+	color: var(--colour-spotify-green);
+	font-weight: bold;
+}
