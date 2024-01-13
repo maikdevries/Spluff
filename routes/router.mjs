@@ -49,3 +49,12 @@ router.get('/csrf', (req, res, next) => {
 		},
 	});
 });
+
+router.use((req, res, next) => {
+	return res.render('error', {
+		error: {
+			'status': 404,
+			'description': 'The page you requested could not be found.',
+		},
+	});
+});
