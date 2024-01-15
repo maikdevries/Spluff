@@ -1,5 +1,5 @@
 <p align='center'>
-	<img src='../public/resources/spluff.svg' width='300' height='120'>
+	<img src='../public/resources/spluff.svg' width='300' height='120' alt='Spluff wordmark logo'>
 	<br><br>
 	Spluff is a simple tool that fully shuffles the songs in any of your <b><a href='https://www.spotify.com'>Spotify</a></b> playlists.
 	<br>

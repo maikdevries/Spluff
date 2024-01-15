@@ -1,36 +1,36 @@
 <a href='/'>
-	<img src='/resources/spluff.svg' width='300' height='120'>
+	<img src='/resources/spluff.svg' width='300' height='120' alt='Spluff homepage'>
 </a>
 
 {% if session.user %}
 	<div>
 
 		<div id='userData'>
-			<img src='{{ session.user.image.url }}' width='{{ session.user.image.size }}' height='{{ session.user.image.size }}'>
+			<img src='{{ session.user.image.url }}' width='{{ session.user.image.size }}' height='{{ session.user.image.size }}' alt=''>
 			<span>{{ session.user.name }}</span>
-			<img src='/resources/icons/expand_more.svg' width='24' height='24'>
+			<img src='/resources/icons/expand_more.svg' width='24' height='24' alt='Expand more'>
 		</div>
 
 		<ul id='userDropdown' class='invisible'>
 
 			<li>
 				<a class='userDropdownEntry' href='/playlists'>
-					<img src='/resources/icons/queue_music.svg' width='24' height='24'>
+					<img src='/resources/icons/queue_music.svg' width='24' height='24' alt=''>
 					Playlists
 				</a>
 			</li>
 
 			<li>
 				<a class='userDropdownEntry' href='{{ session.user.url }}' target='_blank'>
-					<img src='/resources/icons/spotify.svg' width='24' height='24'>
+					<img src='/resources/icons/spotify.svg' width='24' height='24' alt='Spotify'>
 					Profile
-					<img src='/resources/icons/open_in_new.svg' width='24' height='24'>
+					<img src='/resources/icons/open_in_new.svg' width='24' height='24' alt='Open in new window'>
 				</a>
 			</li>
 
 			<li>
 				<a class='userDropdownEntry' href='/auth/logout'>
-					<img src='/resources/icons/logout.svg' width='24' height='24'>
+					<img src='/resources/icons/logout.svg' width='24' height='24' alt=''>
 					Logout
 				</a>
 			</li>
@@ -41,6 +41,6 @@
 {% else %}
 	<a href='/auth'>
 		Login with
-		<img src='/resources/icons/spotify_wordmark_black.svg' width='75' height='22.5'>
+		<img src='/resources/icons/spotify_wordmark_black.svg' width='75' height='22.5' alt='Spotify'>
 	</a>
 {% endif %}

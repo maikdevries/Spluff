@@ -30,12 +30,13 @@
 						<li class='playlist' data-id='{{ playlist.id }}'>
 							<div class='playlistData'>
 								<img loading='lazy' src='{{ playlist.image.url }}'
-									width='{{ playlist.image.size }}' height='{{ playlist.image.size }}'>
+									width='{{ playlist.image.size }}' height='{{ playlist.image.size }}' alt=''>
 
 								<div>
 									<span class='playlistName'>
 										<a href='{{ playlist.url }}' target='_blank'>{{ playlist.name }}</a>
-										<img loading='lazy' src='/resources/icons/open_in_new.svg' width='24' height='24'>
+										<img loading='lazy' src='/resources/icons/open_in_new.svg'
+											width='24' height='24' alt='Open in new window'>
 									</span>
 
 									<span class='playlistDescription'>{{ playlist.description | safe }}</span>
@@ -43,13 +44,13 @@
 							</div>
 
 							<div class='playlistActions'>
-								<img class='hidden' loading='lazy' src='/resources/icons/done.svg' width='24' height='24'>
-								<img class='hidden' loading='lazy' src='/resources/icons/error.svg' width='24' height='24'>
+								<img class='hidden' loading='lazy' src='/resources/icons/done.svg' width='24' height='24' alt='Done'>
+								<img class='hidden' loading='lazy' src='/resources/icons/error.svg' width='24' height='24' alt='Error'>
 
 								<progress class='hidden'></progress>
 
 								<button class='shuffleButton' type='button'>
-									<img loading='lazy' src='/resources/icons/shuffle.svg' width='24' height='24'>
+									<img loading='lazy' src='/resources/icons/shuffle.svg' width='24' height='24' alt=''>
 									Shuffle
 								</button>
 							</div>
