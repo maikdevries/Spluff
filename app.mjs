@@ -41,6 +41,7 @@ app.use('/', (req, res, next) => {
 	app.locals = {
 		app: {
 			'copyright': (new Date()).getFullYear(),
+			'repository': packageData.homepage,
 			'version': packageData.version,
 		},
 	}
