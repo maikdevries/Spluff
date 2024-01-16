@@ -4,6 +4,7 @@ import Express from 'express';
 import session from 'express-session';
 import memoryStore from 'memorystore';
 import nunjucks from 'nunjucks';
+import cors from 'cors';
 
 import packageData from './package.json' with { 'type': 'json' };
 
@@ -31,6 +32,12 @@ app.use(session({
 		'checkPeriod': 86400000,
 	}),
 	'unset': 'destroy',
+}));
+
+app.use(cors({
+	'origin': process.env.DOMAIN_ORIGIN,
+	'methods': ['GET', 'POST'],
+	'credentials': true,
 }));
 
 app.use(Express.json());

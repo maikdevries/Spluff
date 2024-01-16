@@ -14,6 +14,7 @@ export class FetchError extends Error {
 export async function fetchAPI (method, url, headers = null, body = null) {
 	const response = await fetch(url, {
 		'method': method,
+		'credentials': 'same-origin',
 		...(headers && { headers: headers }),
 		...(body && { body: body }),
 	});
