@@ -49,8 +49,8 @@ a[href='/'] > img {
 }
 
 header > a:last-child {
-	width: 150px;
-	height: 30px;
+	width: 170px;
+	height: 50px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -103,7 +103,7 @@ header > div {
 }
 
 #userDropdown {
-	width: 150px;
+	width: 170px;
 	position: absolute;
 	top: 125%;
 	z-index: 2;

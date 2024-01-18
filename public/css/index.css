@@ -60,7 +60,7 @@
 }
 
 .explanation {
-	width: 275px;
+	width: 315px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -110,7 +110,7 @@
 }
 
 .promotionalLink[href='/playlists'] {
-	width: 150px;
+	width: 180px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
