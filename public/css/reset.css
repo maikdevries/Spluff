@@ -9,12 +9,12 @@ html {
 
 body {
 	height: 100vh;
-	margin: 0;
+	margin: 0 0 0 0;
 }
 
 button, input, textarea {
-	margin: 0;
-	padding: 0;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
 	font: inherit;
 }
 
@@ -30,19 +30,19 @@ a, a:visited {
 }
 
 ul {
-	margin: 0;
-	padding: 0;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
 	list-style: none;
 }
 
 p, span {
-	margin: 0;
+	margin: 0 0 0 0;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
 pre {
-	margin: 0;
+	margin: 0 0 0 0;
 	font: 1em/1.6 monospace;
 }
