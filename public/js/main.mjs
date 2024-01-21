@@ -5,5 +5,5 @@ document.getElementById('userData')?.addEventListener('click', (event) => showUs
 });
 
 function showUserDropdown (event) {
-	return event.currentTarget.nextElementSibling.classList.toggle('invisible');
+	return event.currentTarget.nextElementSibling.classList.toggle('hidden');
 }

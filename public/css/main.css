@@ -98,7 +98,7 @@ header > div {
 	transition: var(--transition-collapse);
 }
 
-#userData:has(~ #userDropdown:not(.invisible)) > img:last-of-type {
+#userData:has(~ #userDropdown:not(.hidden)) > img:last-of-type {
 	transform: rotate(180deg);
 }
 
@@ -117,7 +117,7 @@ header > div {
 	transition: var(--transition-collapse);
 }
 
-#userDropdown.invisible {
+#userDropdown.hidden {
 	visibility: hidden;
 	opacity: 0;
 }
