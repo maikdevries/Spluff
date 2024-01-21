@@ -18,7 +18,7 @@ export async function fetchAPI (method, url, headers = null, body = null) {
 	});
 
 	return response.ok
-		? await response.json()
+		? { 'status': response.status, ...await response.json() }
 		: (async () => { throw new FetchError(response.status, response.url, (await response.json()).description) })();
 }
 
@@ -28,5 +28,5 @@ export function handleFetchError (error, callback = null) {
 
 	// NOTE: If error has not been handled, log to console and call callback (if not null)
 	console.error(error);
-	return callback?.();
+	return callback?.(error);
 }

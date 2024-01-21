@@ -43,17 +43,22 @@
 								</div>
 							</div>
 
-							<div class='playlistActions'>
+							<div class='statusContainer'>
 								<img class='hidden' loading='lazy' src='/resources/icons/done.svg' width='24' height='24' alt='Done'>
 								<img class='hidden' loading='lazy' src='/resources/icons/error.svg' width='24' height='24' alt='Error'>
 
-								<progress class='hidden'></progress>
+								<div>
+									<span>STATUS <span class='statusCode'>UNKNOWN</span></span>
+									<span class='statusDescription'>No description available</span>
+								</div>
 
-								<button class='shuffleButton' type='button'>
-									<img loading='lazy' src='/resources/icons/shuffle.svg' width='24' height='24' alt=''>
-									Shuffle
-								</button>
+								<progress class='hidden'></progress>
 							</div>
+
+							<button class='shuffleButton' type='button'>
+								<img loading='lazy' src='/resources/icons/shuffle.svg' width='24' height='24' alt=''>
+								Shuffle
+							</button>
 						</li>
 					{% endfor %}
 

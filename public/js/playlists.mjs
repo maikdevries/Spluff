@@ -11,7 +11,8 @@ async function shufflePlaylist (event) {
 	if (!shuffleButton) return;
 
 	const playlist = shuffleButton.closest('.playlist');
-	const [doneElement, errorElement] = playlist.querySelectorAll('.playlistActions > img');
+	const [doneElement, errorElement] = playlist.querySelectorAll('.statusContainer > img');
+	const [statusCode, statusDescription] = playlist.querySelectorAll('.statusCode, .statusDescription');
 	const [progress] = playlist.getElementsByTagName('progress');
 
 	doneElement.classList.add('hidden');
@@ -21,7 +22,7 @@ async function shufflePlaylist (event) {
 	progress.classList.remove('hidden');
 
 	try {
-		await postAPI('playlists/shuffle', {
+		const response = await postAPI('playlists/shuffle', {
 			'id': playlist.dataset.id,
 		});
 
@@ -31,8 +32,18 @@ async function shufflePlaylist (event) {
 		// NOTE: Does NOT assign when 'image' is null (whenever an error was thrown)
 		if (image) Object.assign(element, { 'src': image.url, 'width': image.size, 'height': image.size });
 
+		statusCode.textContent = response.status ?? 'UNKNOWN';
+		statusDescription.textContent = response.description ?? 'No description available';
+
 		doneElement.classList.remove('hidden');
-	} catch (error) { handleFetchError(error, () => errorElement.classList.remove('hidden')) }
+	} catch (error) {
+		handleFetchError(error, (error) => {
+			statusCode.textContent = error.cause.status ?? 'UNKNOWN';
+			statusDescription.textContent = error.cause.description ?? 'No description available';
+
+			errorElement.classList.remove('hidden');
+		});
+	}
 
 	progress.classList.add('hidden');
 	shuffleButton.disabled = false;

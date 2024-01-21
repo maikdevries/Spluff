@@ -30,7 +30,7 @@
 }
 
 .playlistData > div {
-	width: 100%;
+	max-width: 80%;
 	height: 50px;
 	display: flex;
 	flex-direction: column;
@@ -43,11 +43,16 @@
 }
 
 .playlistName {
-	max-width: 85%;
 	display: flex;
 	align-items: center;
 	color: var(--colour-spotify-green);
 	font-weight: bold;
+}
+
+.playlistName > a {
+	overflow: inherit;
+	white-space: inherit;
+	text-overflow: inherit;
 }
 
 .playlistName > img {
@@ -62,27 +67,61 @@
 }
 
 .playlistDescription {
-	max-width: 85%;
 	font-size: 0.75rem;
 }
 
-.playlistActions {
-	min-width: 175px;
+.statusContainer {
+	position: relative;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: center;
+	margin: 0 20px 0 0;
 }
 
-.playlistActions:has(progress:not(.hidden)) {
-	justify-content: space-between;
+.statusContainer > img {
+	cursor: pointer;
 }
 
-.playlistActions > img {
-	margin: 0 15px 0 0;
+.statusContainer > div {
+	width: 200px;
+	position: absolute;
+	top: 150%;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 10px 10px 10px;
+	background: var(--colour-black);
+	border-radius: 2.5px;
+	font: 0.8rem/1.4 monospace;
+	visibility: hidden;
+	opacity: 0;
+}
+
+.statusContainer:has(> img:hover) > div {
+	visibility: visible;
+	opacity: 1;
+}
+
+.statusContainer > div > span:first-of-type {
+	margin: 0 0 7.5px 0;
+	color: var(--colour-grey);
+}
+
+.statusContainer:has(img[src='/resources/icons/done.svg']:not(.hidden)) .statusCode {
+	color: var(--colour-spotify-green);
+}
+
+.statusContainer:has(img[src='/resources/icons/error.svg']:not(.hidden)) .statusCode {
+	color: var(--colour-red);
+}
+
+.statusDescription {
+	overflow: unset;
+	white-space: unset;
 }
 
 .shuffleButton {
-	width: 100px;
+	min-width: 100px;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
