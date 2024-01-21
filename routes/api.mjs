@@ -8,12 +8,12 @@ export default router;
 router.use('/', (req, res, next) => {
 	// NOTE: If session-stored authorisation is missing, deny request and return 'UNAUTHORISED' status
 	if (!req.session.auth?.token || !req.session.auth?.refreshToken) return res.status(401).json({
-		'description': 'This request lacks proper authentication',
+		'description': 'The authorisation for this request is missing.',
 	});
 
 	// NOTE: If session-stored authorisation has expired, deny request and return 'UNAUTHORISED' status
 	if (req.session.auth?.expires < Date.now()) return res.status(401).json({
-		'description': 'This request lacks up-to-date authentication',
+		'description': 'The authorisation for this request is out-of-date.',
 	});
 
 	return next();
@@ -25,7 +25,7 @@ router.post('/playlists/shuffle', async (req, res, next) => {
 		const items = req.session.cache?.[req.body.id] ?? await getPlaylistItems(req.session, req.body.id);
 
 		// NOTE: If there are no items to process, return early with explanatory body
-		if (!items.length) return res.json({ 'description': 'This request resulted in no content changes' });
+		if (!items.length) return res.json({ 'description': 'This request resulted in no changes.' });
 
 		// NOTE: Create cache entry for current playlist (avoid loss of data when error is thrown hereafter)
 		if (!req.session.cache?.[req.body.id]) {
@@ -46,7 +46,7 @@ router.post('/playlists/shuffle', async (req, res, next) => {
 		// NOTE: When successful, clear cache of current playlist
 		delete req.session.cache[req.body.id];
 
-		return res.json({ 'description': 'This request was completed successfully' });
+		return res.json({ 'description': 'This request was completed successfully.' });
 	} catch (error) { return handleAPIFetchError(error, req, res, next) }
 });
 

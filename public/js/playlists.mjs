@@ -33,13 +33,13 @@ async function shufflePlaylist (event) {
 		if (image) Object.assign(element, { 'src': image.url, 'width': image.size, 'height': image.size });
 
 		statusCode.textContent = response.status ?? 'UNKNOWN';
-		statusDescription.textContent = response.description ?? 'No description available';
+		statusDescription.textContent = response.description ?? 'No description available.';
 
 		doneElement.classList.remove('hidden');
 	} catch (error) {
 		handleFetchError(error, (error) => {
 			statusCode.textContent = error.cause.status ?? 'UNKNOWN';
-			statusDescription.textContent = error.cause.description ?? 'No description available';
+			statusDescription.textContent = error.cause.description ?? 'No description available.';
 
 			errorElement.classList.remove('hidden');
 		});

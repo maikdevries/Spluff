@@ -40,14 +40,14 @@ export function handleFetchError (error, req, res, next) {
 export function handleAPIFetchError (error, req, res, next) {
 	// NOTE: If session-stored authorisation has been invalidated, return 'UNAUTHORISED' status
 	if (error instanceof FetchError && error.cause.status === 401) return res.status(401).json({
-		'description': 'This request associated authorisation has been invalidated',
+		'description': 'The authorisation for this request has expired or is no longer valid.',
 	});
 
 	// NOTE: If session-stored authorisation does not permit access to the requested resource, return 'FORBIDDEN' status
 	if (error instanceof FetchError && error.cause.status === 403) return res.status(403).json({
-		'description': 'This request associated authorisation does not permit access to the requested resource',
+		'description': 'The authorisation for this request denies access to this resource or action.',
 	});
 
 	console.error(error);
-	return res.status(500).json({ 'description': 'Something went terribly wrong on our side of the internet' });
+	return res.status(500).json({ 'description': 'Something went terribly wrong on our side of the internet.' });
 }
