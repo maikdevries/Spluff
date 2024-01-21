@@ -32,22 +32,22 @@ export async function fetchJSON (method, url, headers = null, body = null, retri
 
 export function handleFetchError (error, req, res, next) {
 	// NOTE: If authorisation has been refused for stored credentials, user needs to be re-authenticated
-	if (error instanceof FetchError && error.status === 401) return res.redirect('/auth');
+	if (error instanceof FetchError && error.cause.status === 401) return res.redirect('/auth');
 
 	return next(error);
 }
 
 export function handleAPIFetchError (error, req, res, next) {
 	// NOTE: If session-stored authorisation has been invalidated, return 'UNAUTHORISED' status
-	if (error instanceof FetchError && error.status === 401) return res.status(401).json({
-		'error': 'This request associated authorisation has been invalidated',
+	if (error instanceof FetchError && error.cause.status === 401) return res.status(401).json({
+		'description': 'This request associated authorisation has been invalidated',
 	});
 
 	// NOTE: If session-stored authorisation does not permit access to the requested resource, return 'FORBIDDEN' status
-	if (error instanceof FetchError && error.status === 403) return res.status(403).json({
-		'error': 'This request associated authorisation does not permit access to the requested resource',
+	if (error instanceof FetchError && error.cause.status === 403) return res.status(403).json({
+		'description': 'This request associated authorisation does not permit access to the requested resource',
 	});
 
 	console.error(error);
-	return res.status(500).json({ 'error': 'Something went terribly wrong on our side of the internet' });
+	return res.status(500).json({ 'description': 'Something went terribly wrong on our side of the internet' });
 }
