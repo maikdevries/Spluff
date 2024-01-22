@@ -91,7 +91,7 @@
 	flex-direction: column;
 	padding: 10px 10px 10px 10px;
 	background: var(--colour-black);
-	border-radius: 2.5px;
+	border-radius: var(--border-radius);
 	font: 0.8rem/1.4 monospace;
 	visibility: hidden;
 	opacity: 0;
@@ -137,7 +137,7 @@
 	align-items: center;
 	padding: 7.5px 7.5px 7.5px 7.5px;
 	background: var(--colour-spotify-green);
-	border-radius: 2.5px;
+	border-radius: var(--border-radius);
 	color: var(--colour-spotify-black);
 }
 
