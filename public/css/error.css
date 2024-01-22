@@ -8,7 +8,7 @@
 }
 
 #errorContainer > span:first-of-type {
-	color: var(--colour-spotify-green);
+	color: var(--colour-red);
 	font-size: 3rem;
 }
 
