@@ -135,7 +135,7 @@ header > div {
 	cursor: pointer;
 }
 
-#userDropdown > li:has(a[href='/auth/logout']) {
+#userDropdown > li:has(> a[href='/auth/logout']) {
 	color: var(--colour-red);
 }
 
