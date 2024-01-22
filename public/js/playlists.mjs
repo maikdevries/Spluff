@@ -1,6 +1,6 @@
 import { fetchAPI, handleFetchError } from './utils.mjs';
 
-document.getElementById('playlistContainer').addEventListener('click', (event) => shufflePlaylist(event), {
+document.getElementById('playlistContainer').addEventListener('click', shufflePlaylist, {
 	'capture': true,
 	'once': false,
 	'passive': true,

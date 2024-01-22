@@ -1,4 +1,4 @@
-document.getElementById('userData')?.addEventListener('click', (event) => showUserDropdown(event), {
+document.getElementById('userData')?.addEventListener('click', showUserDropdown, {
 	'capture': true,
 	'once': false,
 	'passive': true,
