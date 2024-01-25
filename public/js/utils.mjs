@@ -30,3 +30,10 @@ export function handleFetchError (error, callback = null) {
 	console.error(error);
 	return callback?.(error);
 }
+
+export function updateStatus (elements, status) {
+	const [statusCode, statusDescription] = elements;
+
+	statusCode.textContent = status.status ?? 'UNKNOWN';
+	statusDescription.textContent = status.description ?? 'No description available.';
+}

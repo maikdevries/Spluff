@@ -1,4 +1,4 @@
-import { fetchAPI, handleFetchError } from './utils.mjs';
+import { fetchAPI, handleFetchError, updateStatus } from './utils.mjs';
 
 document.getElementById('playlistContainer').addEventListener('click', shufflePlaylist, {
 	'capture': true,
@@ -32,15 +32,11 @@ async function shufflePlaylist (event) {
 		// NOTE: Does NOT assign when 'image' is null (whenever an error was thrown)
 		if (image) Object.assign(element, { 'src': image.url, 'width': image.size, 'height': image.size });
 
-		statusCode.textContent = response.status ?? 'UNKNOWN';
-		statusDescription.textContent = response.description ?? 'No description available.';
-
+		updateStatus([statusCode, statusDescription], response);
 		doneElement.classList.remove('hidden');
 	} catch (error) {
 		handleFetchError(error, (error) => {
-			statusCode.textContent = error.cause.status ?? 'UNKNOWN';
-			statusDescription.textContent = error.cause.description ?? 'No description available.';
-
+			updateStatus([statusCode, statusDescription], error.cause);
 			errorElement.classList.remove('hidden');
 		});
 	}
