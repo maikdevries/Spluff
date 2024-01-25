@@ -92,6 +92,7 @@
 	padding: 10px 10px 10px 10px;
 	background: var(--colour-black);
 	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
 	font: 0.8rem/1.4 monospace;
 	visibility: hidden;
 	opacity: 0;

@@ -1,6 +1,8 @@
 :root {
 	--border-radius: 2.5px;
 
+	--box-shadow: inset 0 0 0 1px #FFFFFF20, 0 0 20px 0 #000000FF;
+
 	--colour-black: #0b0909;
 	--colour-black-hover: #191414;
 	--colour-grey: #969696;
@@ -71,6 +73,7 @@ header > div {
 	padding: 5px 5px 5px 5px;
 	background: var(--colour-black);
 	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
 	cursor: pointer;
 	user-select: none;
 }
@@ -115,6 +118,7 @@ header > div {
 	padding: 10px 10px 10px 10px;
 	background: var(--colour-black);
 	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
 	cursor: default;
 	transition: var(--transition-collapse);
 }

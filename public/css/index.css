@@ -118,6 +118,7 @@
 	padding: 15px 15px 15px 15px;
 	background: var(--colour-black);
 	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
 	color: var(--colour-white);
 }
 
