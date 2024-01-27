@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import 'dotenv/config';
 
 import Express from 'express';
 import session from 'express-session';
