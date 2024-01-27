@@ -48,6 +48,11 @@ export function handleAPIFetchError (error, req, res, next) {
 		'description': 'The authorisation for this request denies access to this resource or action.',
 	});
 
+	// NOTE: If requested resource or action could not be identified, return 'NOT FOUND' status
+	if (error instanceof FetchError && error.cause.status === 404) return res.status(404).json({
+		'description': 'The requested resource or action described in this request could not be found.',
+	});
+
 	console.error(error);
 	return res.status(500).json({ 'description': 'Something went terribly wrong on our side of the internet.' });
 }
