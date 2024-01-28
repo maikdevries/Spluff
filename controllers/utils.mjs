@@ -58,6 +58,11 @@ export function handleAPIFetchError (error, req, res, next) {
 		'description': 'The server located upstream encountered a problem while handling this request.',
 	});
 
+	// NOTE: If an upstream server is unavailable, return 'SERVICE UNAVAILABLE' status
+	if (error instanceof FetchError && error.cause.status === 503) return res.status(503).json({
+		'description': 'The server located upstream is currently unavailable.',
+	});
+
 	console.error(error);
 	return res.status(500).json({ 'description': 'Something went terribly wrong on our side of the internet.' });
 }
