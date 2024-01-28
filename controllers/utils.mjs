@@ -53,6 +53,11 @@ export function handleAPIFetchError (error, req, res, next) {
 		'description': 'The requested resource or action described in this request could not be found.',
 	});
 
+	// NOTE: If an upstream server experienced an issue when processing this request, return 'BAD GATEWAY' status
+	if (error instanceof FetchError && (error.cause.status === 500 || error.cause.status === 502)) return res.status(502).json({
+		'description': 'The server located upstream encountered a problem while handling this request.',
+	});
+
 	console.error(error);
 	return res.status(500).json({ 'description': 'Something went terribly wrong on our side of the internet.' });
 }
