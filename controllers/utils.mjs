@@ -40,6 +40,11 @@ export function handleFetchError (error, req, res, next) {
 		error.cause.description = 'The server located upstream encountered a problem while handling this request.';
 	}
 
+	// NOTE: If an upstream server is unavailable, user needs to be informed so
+	if (error instanceof FetchError && error.cause.status === 503) {
+		error.cause.description = 'The server located upstream is currently unavailable.';
+	}
+
 	return next(error);
 }
 
