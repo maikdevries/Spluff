@@ -21,8 +21,8 @@
 		<main>
 
 			<div id='errorContainer'>
-				<span><span>ERROR</span> {{ error.cause.status | default(500) }}</span>
-				<span>{{ error.cause.description | default('Something happened that should have never happened...') }}</span>
+				<span><span>ERROR</span> {{ error.status | default(500) }}</span>
+				<span>{{ error.description | default('Something happened that should have never happened...') }}</span>
 
 				<p>
 					If you keep finding your way back to this place, it is probably a good idea to
