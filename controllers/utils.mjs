@@ -48,32 +48,19 @@ export function handleFetchError (error, req, res, next) {
 	return next(error);
 }
 
+const statusDescriptions = {
+	401: 'The authorisation for this request has expired or is no longer valid.',
+	403: 'The authorisation for this request denies access to this resource or action.',
+	404: 'The requested resource or action described in this request could not be found.',
+	502: 'The server located upstream encountered a problem while handling this request.',
+	503: 'The server located upstream is currently unavailable.',
+}
+
 export function handleAPIFetchError (error, req, res, next) {
-	// NOTE: If session-stored authorisation has been invalidated, return 'UNAUTHORISED' status
-	if (error instanceof FetchError && error.cause.status === 401) return res.status(401).json({
-		'description': 'The authorisation for this request has expired or is no longer valid.',
-	});
-
-	// NOTE: If session-stored authorisation does not permit access to the requested resource, return 'FORBIDDEN' status
-	if (error instanceof FetchError && error.cause.status === 403) return res.status(403).json({
-		'description': 'The authorisation for this request denies access to this resource or action.',
-	});
-
-	// NOTE: If requested resource or action could not be identified, return 'NOT FOUND' status
-	if (error instanceof FetchError && error.cause.status === 404) return res.status(404).json({
-		'description': 'The requested resource or action described in this request could not be found.',
-	});
-
-	// NOTE: If an upstream server experienced an issue when processing this request, return 'BAD GATEWAY' status
-	if (error instanceof FetchError && (error.cause.status === 500 || error.cause.status === 502)) return res.status(502).json({
-		'description': 'The server located upstream encountered a problem while handling this request.',
-	});
-
-	// NOTE: If an upstream server is unavailable, return 'SERVICE UNAVAILABLE' status
-	if (error instanceof FetchError && error.cause.status === 503) return res.status(503).json({
-		'description': 'The server located upstream is currently unavailable.',
-	});
+	// NOTE: Rewrite 500 Internal Server Error to 502 Bad Gateway to signal upstream server problem
+	const status = error instanceof FetchError ? (error.cause.status === 500 ? 502 : error.cause.status) : 500;
+	const description = statusDescriptions[status] ?? 'Something went terribly wrong on our side of the internet';
 
 	console.error(error);
-	return res.status(500).json({ 'description': 'Something went terribly wrong on our side of the internet.' });
+	return res.status(status).json({ description });
 }
