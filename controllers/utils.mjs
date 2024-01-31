@@ -31,18 +31,20 @@ export async function fetchJSON (method, url, headers = null, body = null, retri
 }
 
 export function handleFetchError (error, req, res, next) {
-	// NOTE: If authorisation has been refused for stored credentials, user needs to be re-authenticated
-	if (error instanceof FetchError && error.cause.status === 401) return res.redirect('/auth');
+	if (error instanceof FetchError) {
+		// NOTE: If authorisation has been refused for stored credentials, user needs to be re-authenticated
+		if (error.cause.status === 401) return res.redirect('/auth');
 
-	// NOTE: If an upstream server experienced an issue when processing this request, user needs to be informed so
-	if (error instanceof FetchError && (error.cause.status === 500 || error.cause.status === 502)) {
-		error.cause.status = 502;
-		error.cause.description = 'The server located upstream encountered a problem while handling this request.';
-	}
+		// NOTE: If an upstream server experienced an issue when processing this request, user needs to be informed so
+		else if (error.cause.status === 500 || error.cause.status === 502) {
+			error.cause.status = 502;
+			error.cause.description = 'The server located upstream encountered a problem while handling this request.';
+		}
 
-	// NOTE: If an upstream server is unavailable, user needs to be informed so
-	if (error instanceof FetchError && error.cause.status === 503) {
-		error.cause.description = 'The server located upstream is currently unavailable.';
+		// NOTE: If an upstream server is unavailable, user needs to be informed so
+		else if (error.cause.status === 503) {
+			error.cause.description = 'The server located upstream is currently unavailable.';
+		}
 	}
 
 	return next(error);
