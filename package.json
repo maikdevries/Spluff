@@ -1,6 +1,6 @@
 {
 	"name": "spluff",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"type": "module",
 	"description": "Spluff is a simple tool that fully shuffles the songs in any of your Spotify playlists",
 	"author": "maikdevries",
