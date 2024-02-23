@@ -3,3 +3,6 @@
 
 # Ignore environment variables
 *.env
+
+# Ignore MacOS directory files
+.DS_Store
