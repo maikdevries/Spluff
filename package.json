@@ -4,7 +4,7 @@
 	"type": "module",
 	"description": "Spluff is a simple tool that fully shuffles the songs in any of your Spotify playlists",
 	"author": "maikdevries",
-	"license": "MIT",
+	"license": "GPL-3.0-or-later",
 	"homepage": "https://github.com/maikdevries/Spluff",
 	"repository": {
 		"type": "git",
