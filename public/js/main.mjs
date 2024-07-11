@@ -9,11 +9,11 @@ function toggleUserDropdown (event) {
 
 	const userDropdown = document.getElementById('userDropdown');
 
-	if (userDropdown.contains(event.target)) return;
-
-	if (!userDropdown.classList.toggle('hidden')) document.addEventListener('click', toggleUserDropdown, {
-		'capture': true,
-		'once': true,
-		'passive': true,
-	});
+	if (userDropdown.contains(event.target) || !userDropdown.classList.toggle('hidden')) {
+		return document.addEventListener('click', toggleUserDropdown, {
+			'capture': true,
+			'once': true,
+			'passive': true,
+		});
+	}
 }
