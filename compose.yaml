@@ -1,0 +1,26 @@
+services:
+  spluff:
+    container_name: spluff
+    env_file:
+      - .env
+    build: .
+    expose:
+      - ${DENO_PORT:?error}
+    networks:
+      - public
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://0.0.0.0:${DENO_PORT:?error} || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    attach: false
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  public:
+    name: public
+    external: true
