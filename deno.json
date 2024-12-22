@@ -77,6 +77,6 @@
 		}
 	},
 	"imports": {
-		"@std/http": "jsr:@std/http"
+		"@std/http": "jsr:@std/http@^1.0.12"
 	}
 }

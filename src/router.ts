@@ -1,6 +1,7 @@
-import type { Route } from '@std/http';
+import type { Route } from '@std/http/unstable-route';
 
-import { route, STATUS_CODE, STATUS_TEXT } from '@std/http';
+import { STATUS_CODE, STATUS_TEXT } from '@std/http';
+import { route } from '@std/http/unstable-route';
 
 const routes: Route[] = [
 	{
