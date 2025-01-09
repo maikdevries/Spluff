@@ -1,10 +1,21 @@
-import type { HTTP_METHOD, JSON } from './types.ts';
+import type { Authorisation, HTTP_METHOD, JSON } from './types.ts';
 
 class FetchError extends Error {
 	constructor(status: number, method: keyof typeof HTTP_METHOD, url: string) {
 		super(`Fetch request failed with status ${status}. URL: ${method} ${url}`);
 		this.name = this.constructor.name;
 	}
+}
+
+export async function auth(params: URLSearchParams): Promise<Authorisation> | never {
+	return await json(
+		'POST',
+		new URL('https://accounts.spotify.com/api/token'),
+		{
+			'Content-Type': 'application/x-www-form-urlencoded',
+		},
+		params,
+	) as unknown as Authorisation;
 }
 
 async function json(method: keyof typeof HTTP_METHOD, url: URL, headers: HeadersInit, body: BodyInit): Promise<JSON> | never {
