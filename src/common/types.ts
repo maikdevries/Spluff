@@ -1,3 +1,9 @@
+export interface Credentials {
+	'token': string;
+	'expires': number;
+	'refresh': string;
+}
+
 export interface TokenResponse {
 	'access_token': string;
 	'token_type': 'Bearer';
