@@ -1,4 +1,4 @@
-import type { Authorisation, HTTP_METHOD, JSON } from './types.ts';
+import type { HTTP_METHOD, JSON, TokenResponse } from './types.ts';
 
 class FetchError extends Error {
 	constructor(status: number, method: keyof typeof HTTP_METHOD, url: string) {
@@ -7,7 +7,7 @@ class FetchError extends Error {
 	}
 }
 
-export async function auth(params: URLSearchParams): Promise<Authorisation> | never {
+export async function auth(params: URLSearchParams): Promise<TokenResponse> | never {
 	return await json(
 		'POST',
 		new URL('https://accounts.spotify.com/api/token'),
@@ -15,7 +15,7 @@ export async function auth(params: URLSearchParams): Promise<Authorisation> | ne
 			'Content-Type': 'application/x-www-form-urlencoded',
 		},
 		params,
-	) as unknown as Authorisation;
+	) as unknown as TokenResponse;
 }
 
 async function json(method: keyof typeof HTTP_METHOD, url: URL, headers: HeadersInit, body: BodyInit): Promise<JSON> | never {
