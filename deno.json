@@ -77,6 +77,8 @@
 		}
 	},
 	"imports": {
-		"@std/http": "jsr:@std/http@^1.0.12"
+		"@maikdevries/server-sessions": "jsr:@maikdevries/server-sessions@^0.3.0",
+		"@std/encoding": "jsr:@std/encoding@^1.0.7",
+		"@std/http": "jsr:@std/http@^1.0.13"
 	}
 }
