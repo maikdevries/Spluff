@@ -4,14 +4,6 @@ export interface Credentials {
 	'refresh': string;
 }
 
-export interface TokenResponse {
-	'access_token': string;
-	'token_type': 'Bearer';
-	'scope': string;
-	'expires_in': number;
-	'refresh_token'?: string;
-}
-
 export const HTTP_METHOD = {
 	GET: 'GET',
 	POST: 'POST',
@@ -19,4 +11,12 @@ export const HTTP_METHOD = {
 
 export interface JSON {
 	[key: string]: string | number | boolean | null | JSON | JSON[];
+}
+
+export interface TokenResponse {
+	'access_token': string;
+	'token_type': 'Bearer';
+	'scope': string;
+	'expires_in': number;
+	'refresh_token'?: string;
 }
