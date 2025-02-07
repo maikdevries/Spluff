@@ -13,6 +13,11 @@ export interface JSON {
 	[key: string]: string | number | boolean | null | JSON | JSON[];
 }
 
+export interface PKCE {
+	'state': string;
+	'verifier': string;
+}
+
 export interface TokenResponse {
 	'access_token': string;
 	'token_type': 'Bearer';
