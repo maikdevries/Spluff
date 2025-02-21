@@ -6,7 +6,7 @@ export async function retrieve(code: string, verifier: string): Promise<Credenti
 	const params = new URLSearchParams({
 		'grant_type': 'authorization_code',
 		'code': code,
-		'redirect_uri': Deno.env.get('SPOTIFY_REDIRECT_URI') ?? '',
+		'redirect_uri': `${Deno.env.get('DENO_ORIGIN') ?? ''}/auth/process`,
 		'client_id': Deno.env.get('SPOTIFY_CLIENT_ID') ?? '',
 		'code_verifier': verifier,
 	});

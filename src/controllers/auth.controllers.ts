@@ -15,7 +15,7 @@ export async function login(_: Request, session: Session): Promise<Response> {
 	const params = new URLSearchParams({
 		'client_id': Deno.env.get('SPOTIFY_CLIENT_ID') ?? '',
 		'response_type': 'code',
-		'redirect_uri': Deno.env.get('SPOTIFY_REDIRECT_URI') ?? '',
+		'redirect_uri': `${Deno.env.get('DENO_ORIGIN') ?? ''}/auth/process`,
 		'state': state,
 		'scope': 'playlist-modify-private playlist-modify-public playlist-read-private',
 		'code_challenge_method': 'S256',
