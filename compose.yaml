@@ -9,7 +9,7 @@ services:
     networks:
       - public
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://0.0.0.0:${DENO_PORT:?error} || exit 1"]
+      test: ["CMD", "deno", "eval", "try { await fetch('http://127.0.0.1:${DENO_PORT:?error}') } catch { Deno.exit(1) }"]
       interval: 30s
       timeout: 10s
       retries: 3
