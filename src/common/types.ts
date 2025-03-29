@@ -13,6 +13,16 @@ export interface JSON {
 	[key: string]: string | number | boolean | null | JSON | JSON[];
 }
 
+export interface Page<T> {
+	'href': string;
+	'items': T[];
+	'limit': number;
+	'next': string | null;
+	'offset': number;
+	'previous': string | null;
+	'total': number;
+}
+
 export interface PKCE {
 	'state': string;
 	'verifier': string;

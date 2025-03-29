@@ -1,4 +1,4 @@
-import type { HTTP_METHOD, JSON, TokenResponse } from './types.ts';
+import type { HTTP_METHOD, JSON, Page, TokenResponse } from './types.ts';
 
 class FetchError extends Error {
 	constructor(status: number, method: keyof typeof HTTP_METHOD, url: string) {
@@ -26,6 +26,18 @@ export async function api<T>(token: string, method: keyof typeof HTTP_METHOD, en
 			'Authorization': `Bearer ${token}`,
 		},
 	) as unknown as T;
+}
+
+export async function items<T>(token: string, method: keyof typeof HTTP_METHOD, endpoint: string, offset = 0): Promise<T[]> | never {
+	const params = {
+		'limit': 50,
+		'offset': offset,
+	};
+
+	const data = await api<Page<T>>(token, method, `${endpoint}?${new URLSearchParams(String(params))}`);
+
+	if (data.next) return [...data.items, ...await items<T>(token, method, endpoint, params.limit + params.offset)];
+	else return data.items;
 }
 
 async function json(method: keyof typeof HTTP_METHOD, url: URL, headers: HeadersInit, body: BodyInit = ''): Promise<JSON> | never {
