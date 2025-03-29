@@ -3,7 +3,8 @@ import type { Route } from '@std/http/unstable-route';
 import { session } from '@maikdevries/server-sessions';
 import { STATUS_CODE, STATUS_TEXT } from '@std/http';
 import { route } from '@std/http/unstable-route';
-import * as authController from './controllers/auth.controllers.ts';
+
+import * as auth from './controllers/auth.controllers.ts';
 
 const routes: Route[] = [
 	{
@@ -14,22 +15,22 @@ const routes: Route[] = [
 	{
 		'method': ['GET'],
 		'pattern': new URLPattern({ 'pathname': '/auth/login' }),
-		'handler': (request: Request) => session.handle(request, authController.login),
+		'handler': (request: Request) => session.handle(request, auth.login),
 	},
 	{
 		'method': ['GET'],
 		'pattern': new URLPattern({ 'pathname': '/auth/process' }),
-		'handler': (request: Request) => session.handle(request, authController.process),
+		'handler': (request: Request) => session.handle(request, auth.process),
 	},
 	{
 		'method': ['GET'],
 		'pattern': new URLPattern({ 'pathname': '/auth/refresh' }),
-		'handler': (request: Request) => session.handle(request, authController.refresh),
+		'handler': (request: Request) => session.handle(request, auth.refresh),
 	},
 	{
 		'method': ['GET'],
 		'pattern': new URLPattern({ 'pathname': '/auth/logout' }),
-		'handler': (request: Request) => session.handle(request, authController.logout),
+		'handler': (request: Request) => session.handle(request, auth.logout),
 	},
 ];
 

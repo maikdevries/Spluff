@@ -2,7 +2,7 @@ import type { Session } from '@maikdevries/server-sessions';
 import type { Credentials, PKCE } from '../common/types.ts';
 
 import { encodeBase64Url } from '@std/encoding';
-import * as authService from '../services/auth.services.ts';
+import * as auth from '../services/auth.services.ts';
 
 const DENO_ORIGIN = Deno.env.get('DENO_ORIGIN') ?? '';
 const SPOTIFY_CLIENT_ID = Deno.env.get('SPOTIFY_CLIENT_ID') ?? '';
@@ -42,7 +42,7 @@ export async function process(request: Request, session: Session): Promise<Respo
 	if (!code || !pkce) return Response.redirect(new URL('/auth/login', DENO_ORIGIN));
 	else if (url.searchParams.get('state') !== pkce.state) return Response.redirect(new URL('/auth/csrf', DENO_ORIGIN));
 
-	const credentials = await authService.retrieve(code, pkce.verifier);
+	const credentials = await auth.retrieve(code, pkce.verifier);
 	session.regenerate().set('credentials', credentials);
 
 	return Response.redirect(new URL('/playlists', DENO_ORIGIN));
@@ -52,7 +52,7 @@ export async function refresh(_: Request, session: Session): Promise<Response> {
 	const token = session.get<Credentials>('credentials')?.refresh;
 	if (!token) return Response.redirect(new URL('/auth/login', DENO_ORIGIN));
 
-	const credentials = await authService.refresh(token);
+	const credentials = await auth.refresh(token);
 	session.regenerate().set('credentials', credentials);
 
 	return Response.redirect(new URL('/', DENO_ORIGIN));
