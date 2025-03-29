@@ -18,6 +18,16 @@ export async function auth(params: URLSearchParams): Promise<TokenResponse> | ne
 	) as unknown as TokenResponse;
 }
 
+export async function api<T>(token: string, method: keyof typeof HTTP_METHOD, endpoint: string): Promise<T> | never {
+	return await json(
+		method,
+		new URL(endpoint, 'https://api.spotify.com/v1/'),
+		{
+			'Authorization': `Bearer ${token}`,
+		},
+	) as unknown as T;
+}
+
 async function json(method: keyof typeof HTTP_METHOD, url: URL, headers: HeadersInit, body: BodyInit = ''): Promise<JSON> | never {
 	let response: Response;
 
