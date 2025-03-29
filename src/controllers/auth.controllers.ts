@@ -27,7 +27,7 @@ export async function login(_: Request, session: Session): Promise<Response> {
 		'verifier': verifier,
 	});
 
-	return Response.redirect(`https://accounts.spotify.com/authorize?${params.toString()}`);
+	return Response.redirect(`https://accounts.spotify.com/authorize?${params}`);
 }
 
 export async function process(request: Request, session: Session): Promise<Response> {
