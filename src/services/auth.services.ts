@@ -16,7 +16,7 @@ export async function retrieve(code: string, verifier: string): Promise<Credenti
 	return {
 		'token': data.access_token,
 		'expires': Date.now() + data.expires_in * 1000,
-		'refresh': data.refresh_token as string,
+		'refresh': data.refresh_token ?? '',
 	};
 }
 
