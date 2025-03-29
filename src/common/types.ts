@@ -5,8 +5,8 @@ export interface Credentials {
 }
 
 export const HTTP_METHOD = {
-	GET: 'GET',
-	POST: 'POST',
+	'GET': 'GET',
+	'POST': 'POST',
 } as const;
 
 export interface JSON {
