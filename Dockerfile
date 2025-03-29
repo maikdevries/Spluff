@@ -8,8 +8,8 @@ USER deno
 
 WORKDIR /app
 
-# COPY app.ts .
-# RUN deno install --entrypoint app.ts
+COPY deno.json .
+RUN deno install
 
 COPY . .
 RUN deno cache app.ts
