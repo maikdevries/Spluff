@@ -4,6 +4,9 @@ import type { Credentials, PKCE } from '../common/types.ts';
 import { encodeBase64Url } from '@std/encoding';
 import * as authService from '../services/auth.services.ts';
 
+const DENO_ORIGIN = Deno.env.get('DENO_ORIGIN') ?? '';
+const SPOTIFY_CLIENT_ID = Deno.env.get('SPOTIFY_CLIENT_ID') ?? '';
+
 export async function login(_: Request, session: Session): Promise<Response> {
 	// [FUTURE] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array/toBase64#browser_compatibility
 	const state = encodeBase64Url(crypto.getRandomValues(new Uint8Array(128)));
@@ -13,9 +16,9 @@ export async function login(_: Request, session: Session): Promise<Response> {
 	const challenge = encodeBase64Url(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)));
 
 	const params = new URLSearchParams({
-		'client_id': Deno.env.get('SPOTIFY_CLIENT_ID') ?? '',
+		'client_id': SPOTIFY_CLIENT_ID,
 		'response_type': 'code',
-		'redirect_uri': `${Deno.env.get('DENO_ORIGIN') ?? ''}/auth/process`,
+		'redirect_uri': `${DENO_ORIGIN}/auth/process`,
 		'state': state,
 		'scope': 'playlist-modify-private playlist-modify-public playlist-read-private',
 		'code_challenge_method': 'S256',

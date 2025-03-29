@@ -2,12 +2,15 @@ import type { Credentials } from '../common/types.ts';
 
 import * as fetch from '../common/fetch.ts';
 
+const DENO_ORIGIN = Deno.env.get('DENO_ORIGIN') ?? '';
+const SPOTIFY_CLIENT_ID = Deno.env.get('SPOTIFY_CLIENT_ID') ?? '';
+
 export async function retrieve(code: string, verifier: string): Promise<Credentials> {
 	const params = new URLSearchParams({
 		'grant_type': 'authorization_code',
 		'code': code,
-		'redirect_uri': `${Deno.env.get('DENO_ORIGIN') ?? ''}/auth/process`,
-		'client_id': Deno.env.get('SPOTIFY_CLIENT_ID') ?? '',
+		'redirect_uri': `${DENO_ORIGIN}/auth/process`,
+		'client_id': SPOTIFY_CLIENT_ID,
 		'code_verifier': verifier,
 	});
 
@@ -24,7 +27,7 @@ export async function refresh(token: string): Promise<Credentials> {
 	const params = new URLSearchParams({
 		'grant_type': 'refresh_token',
 		'refresh_token': token,
-		'client_id': Deno.env.get('SPOTIFY_CLIENT_ID') ?? '',
+		'client_id': SPOTIFY_CLIENT_ID,
 	});
 
 	const data = await fetch.auth(params);
