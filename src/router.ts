@@ -5,6 +5,7 @@ import { STATUS_CODE, STATUS_TEXT } from '@std/http';
 import { route } from '@std/http/unstable-route';
 
 import * as auth from './controllers/auth.controllers.ts';
+import * as spotify from './controllers/spotify.controllers.ts';
 
 const routes: Route[] = [
 	{
@@ -31,6 +32,11 @@ const routes: Route[] = [
 		'method': ['GET'],
 		'pattern': new URLPattern({ 'pathname': '/auth/logout' }),
 		'handler': (request: Request) => session.handle(request, auth.logout),
+	},
+	{
+		'method': ['GET'],
+		'pattern': new URLPattern({ 'pathname': '/playlists' }),
+		'handler': (request: Request) => session.handle(request, spotify.playlists),
 	},
 ];
 
