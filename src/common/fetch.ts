@@ -40,7 +40,7 @@ export async function items<T>(token: string, method: keyof typeof HTTP_METHOD, 
 	else return data.items;
 }
 
-async function json(method: keyof typeof HTTP_METHOD, url: URL, headers: HeadersInit, body: BodyInit = ''): Promise<JSON> | never {
+async function json(method: keyof typeof HTTP_METHOD, url: URL, headers: HeadersInit, body?: BodyInit): Promise<JSON> | never {
 	let response: Response;
 
 	try {
@@ -50,7 +50,7 @@ async function json(method: keyof typeof HTTP_METHOD, url: URL, headers: Headers
 				'Accept': 'application/json',
 				...headers,
 			},
-			...(body && { 'body': body }),
+			...(body ? { 'body': body } : {}),
 		});
 	} catch {
 		throw new FetchError(503, method, url.toString());
