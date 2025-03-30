@@ -29,14 +29,14 @@ export async function api<T>(token: string, method: keyof typeof HTTP_METHOD, en
 }
 
 export async function items<T>(token: string, method: keyof typeof HTTP_METHOD, endpoint: string, offset = 0): Promise<T[]> | never {
-	const params = {
-		'limit': 50,
-		'offset': offset,
-	};
+	const params = new URLSearchParams({
+		'limit': '50',
+		'offset': String(offset),
+	});
 
-	const data = await api<Page<T>>(token, method, `${endpoint}?${new URLSearchParams(String(params))}`);
+	const data = await api<Page<T>>(token, method, `${endpoint}?${params}`);
 
-	if (data.next) return [...data.items, ...await items<T>(token, method, endpoint, params.limit + params.offset)];
+	if (data.next) return [...data.items, ...await items<T>(token, method, endpoint, data.offset + data.limit)];
 	else return data.items;
 }
 
