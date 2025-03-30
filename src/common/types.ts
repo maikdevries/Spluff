@@ -70,9 +70,9 @@ interface Image {
 	'width': number | null;
 }
 
-export interface JSON {
-	[key: string]: string | number | boolean | null | JSON | JSON[];
-}
+export type JSON = string | number | boolean | null | JSON[] | {
+	[key: string]: JSON;
+};
 
 export interface Page<T> {
 	'href': string;
