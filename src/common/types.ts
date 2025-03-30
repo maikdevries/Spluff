@@ -63,8 +63,7 @@ export interface TokenResponse {
 	'refresh_token': string | undefined;
 }
 
-interface User {
-	'display_name': string | null;
+interface BaseUser {
 	'external_urls': {
 		'spotify': string;
 	};
@@ -72,4 +71,8 @@ interface User {
 	'id': string;
 	'type': 'user';
 	'uri': string;
+}
+
+interface User extends BaseUser {
+	'display_name': string | null;
 }
