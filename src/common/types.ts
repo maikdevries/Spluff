@@ -60,6 +60,7 @@ interface Episode {
 }
 
 export const HTTP_METHOD = {
+	'DELETE': 'DELETE',
 	'GET': 'GET',
 	'POST': 'POST',
 } as const;
@@ -145,6 +146,10 @@ interface Show {
 	'total_episodes': number;
 	'type': 'show';
 	'uri': string;
+}
+
+export interface Snapshot {
+	'snapshot_id': string;
 }
 
 interface Track {
