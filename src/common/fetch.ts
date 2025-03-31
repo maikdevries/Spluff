@@ -8,7 +8,7 @@ export async function api<T>(token: string, method: keyof typeof HTTP_METHOD, en
 			'Authorization': `Bearer ${token}`,
 			'Content-Type': 'application/json',
 		},
-		(payload ? JSON.stringify(payload) : undefined),
+		payload ? JSON.stringify(payload) : undefined,
 	) as unknown as T;
 }
 
@@ -33,6 +33,15 @@ export async function pull<T>(token: string, method: keyof typeof HTTP_METHOD, e
 
 	if (data.next) return [...data.items, ...await pull<T>(token, method, endpoint, data.offset + data.limit)];
 	else return data.items;
+}
+
+export async function push<T>(token: string, method: keyof typeof HTTP_METHOD, endpoint: string, key: string, payload: JSON[]): Promise<T> {
+	const response = await api<T>(token, method, endpoint, {
+		[key]: payload.slice(0, 100),
+	});
+
+	if (payload.length > 100) return await push<T>(token, method, endpoint, key, payload.slice(100, payload.length));
+	else return response;
 }
 
 async function json(method: keyof typeof HTTP_METHOD, url: URL, headers: HeadersInit, body?: BodyInit): Promise<JSON> | never {
