@@ -9,5 +9,5 @@ export async function playlists(_: Request, session: Session): Promise<Response>
 	const credentials = session.get<Credentials>('credentials');
 	if (!credentials?.token) return Response.redirect(new URL('/auth/login', DENO_ORIGIN));
 
-	return Response.json(await spotify.playlists(credentials.token));
+	return Response.json(await spotify.getPlaylists(credentials.token));
 }
