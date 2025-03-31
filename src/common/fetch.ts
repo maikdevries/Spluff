@@ -30,7 +30,7 @@ export async function api<T>(token: string, method: keyof typeof HTTP_METHOD, en
 	) as unknown as T;
 }
 
-export async function items<T>(token: string, method: keyof typeof HTTP_METHOD, endpoint: string, offset = 0): Promise<T[]> | never {
+export async function pull<T>(token: string, method: keyof typeof HTTP_METHOD, endpoint: string, offset = 0): Promise<T[]> | never {
 	const params = new URLSearchParams({
 		'limit': '50',
 		'offset': String(offset),
@@ -38,7 +38,7 @@ export async function items<T>(token: string, method: keyof typeof HTTP_METHOD, 
 
 	const data = await api<Page<T>>(token, method, `${endpoint}?${params}`);
 
-	if (data.next) return [...data.items, ...await items<T>(token, method, endpoint, data.offset + data.limit)];
+	if (data.next) return [...data.items, ...await pull<T>(token, method, endpoint, data.offset + data.limit)];
 	else return data.items;
 }
 
